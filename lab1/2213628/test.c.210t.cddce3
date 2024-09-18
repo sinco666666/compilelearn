@@ -1,0 +1,121 @@
+
+;; Function print_message (print_message, funcdef_no=24, decl_uid=3954, cgraph_uid=25, symbol_order=24)
+
+;; 1 loops found
+;;
+;; Loop 0
+;;  header 0, latch 1
+;;  depth 0, outer -1
+;;  nodes: 0 1 2
+;; 2 succs { 1 }
+void print_message ()
+{
+  <bb 2> [local count: 1073741824]:
+  __builtin_puts (&"fundamentals of compiling"[0]);
+  return;
+
+}
+
+
+
+;; Function add (add, funcdef_no=25, decl_uid=3957, cgraph_uid=26, symbol_order=25)
+
+;; 1 loops found
+;;
+;; Loop 0
+;;  header 0, latch 1
+;;  depth 0, outer -1
+;;  nodes: 0 1 2
+;; 2 succs { 1 }
+int add (int a, int b)
+{
+  int _3;
+
+  <bb 2> [local count: 1073741824]:
+  _3 = a_1(D) + b_2(D);
+  return _3;
+
+}
+
+
+
+;; Function main (main, funcdef_no=26, decl_uid=3964, cgraph_uid=27, symbol_order=26) (executed once)
+
+;; 2 loops found
+;;
+;; Loop 0
+;;  header 0, latch 1
+;;  depth 0, outer -1
+;;  nodes: 0 1 2 3 4 6 5
+;;
+;; Loop 1
+;;  header 4, latch 6
+;;  depth 1, outer 0
+;;  nodes: 4 6
+;; 2 succs { 3 5 }
+;; 3 succs { 4 }
+;; 4 succs { 6 5 }
+;; 6 succs { 4 }
+;; 5 succs { 1 }
+int main ()
+{
+  float arr$2;
+  int sum1;
+  int i;
+  int n;
+  double _1;
+  double _2;
+  double _3;
+  double _4;
+  float _5;
+  int _6;
+  double _7;
+  unsigned int _12;
+  int n.0_24;
+  unsigned int _26;
+
+  <bb 2> [local count: 118111600]:
+  scanf ("%d", &n);
+  n.0_24 = n;
+  if (n.0_24 >= 0)
+    goto <bb 3>; [89.00%]
+  else
+    goto <bb 5>; [11.00%]
+
+  <bb 3> [local count: 105119324]:
+  _26 = (unsigned int) n.0_24;
+  _12 = _26 + 1;
+  _6 = (int) _12;
+
+  <bb 4> [local count: 955630225]:
+  # i_25 = PHI <i_17(6), 0(3)>
+  # arr$2_28 = PHI <_5(6), 0.0(3)>
+  _1 = (double) arr$2_28;
+  _2 = (double) i_25;
+  _3 = _2 * 1.000000000000000055511151231257827021181583404541015625e-1;
+  _4 = _1 + _3;
+  _5 = (float) _4;
+  i_17 = i_25 + 1;
+  if (_6 != i_17)
+    goto <bb 6>; [89.00%]
+  else
+    goto <bb 5>; [11.00%]
+
+  <bb 6> [local count: 850510901]:
+  goto <bb 4>; [100.00%]
+
+  <bb 5> [local count: 118111600]:
+  # arr$2_29 = PHI <_5(4), 0.0(2)>
+  sum1_13 = add (5, 7);
+  print_message ();
+  __printf_chk (2, "integer: %d\n", sum1_13);
+  __printf_chk (2, "floating: %f\n", 3.140000000000000124344978758017532527446746826171875e+0);
+  __printf_chk (2, "constant: %d\n", 42);
+  _7 = (double) arr$2_29;
+  __printf_chk (2, "sum2: %f\n", _7);
+  n ={v} {CLOBBER(eol)};
+  return 0;
+
+}
+
+

@@ -1,0 +1,149 @@
+
+;; Function printf (printf, funcdef_no=5, decl_uid=1743, cgraph_uid=6, symbol_order=5)
+
+pointer_query counters:
+  index cache size:   0
+  index entries:      0
+  access cache size:  0
+  access entries:     0
+  hits:               0
+  misses:             0
+  failures:           0
+  max_depth:          0
+__attribute__((artificial, gnu_inline, always_inline))
+__attribute__((nonnull (1), format (printf, 1, 2)))
+int printf (const char * restrict __fmt)
+{
+  int _4;
+
+  <bb 2> :
+  _4 = __printf_chk (2, __fmt_2(D), __builtin_va_arg_pack ());
+  return _4;
+
+}
+
+
+
+;; Function print_message (print_message, funcdef_no=24, decl_uid=3954, cgraph_uid=25, symbol_order=24)
+
+pointer_query counters:
+  index cache size:   0
+  index entries:      0
+  access cache size:  0
+  access entries:     0
+  hits:               0
+  misses:             0
+  failures:           0
+  max_depth:          0
+void print_message ()
+{
+  <bb 2> :
+  printf ("fundamentals of compiling\n");
+  return;
+
+}
+
+
+
+;; Function add (add, funcdef_no=25, decl_uid=3957, cgraph_uid=26, symbol_order=25)
+
+pointer_query counters:
+  index cache size:   0
+  index entries:      0
+  access cache size:  0
+  access entries:     0
+  hits:               0
+  misses:             0
+  failures:           0
+  max_depth:          0
+int add (int a, int b)
+{
+  int _3;
+
+  <bb 2> :
+  _3 = a_1(D) + b_2(D);
+  return _3;
+
+}
+
+
+
+;; Function main (main, funcdef_no=26, decl_uid=3964, cgraph_uid=27, symbol_order=26)
+
+pointer_query counters:
+  index cache size:   0
+  index entries:      0
+  access cache size:  0
+  access entries:     0
+  hits:               0
+  misses:             0
+  failures:           0
+  max_depth:          0
+int main ()
+{
+  int sum1;
+  int i;
+  int n;
+  float arr[3];
+  float _1;
+  double _2;
+  double _3;
+  double _4;
+  double _5;
+  float _6;
+  int n.0_7;
+  float _8;
+  int _9;
+  float _10;
+  int _11;
+  float _12;
+  double _13;
+  int _29;
+
+  <bb 2> :
+  arr[0] = 5.0e+0;
+  arr[1] = 7.0e+0;
+  arr[2] = 0.0;
+  scanf ("%d", &n);
+  i_21 = 0;
+  goto <bb 4>; [INV]
+
+  <bb 3> :
+  _1 = arr[2];
+  _2 = (double) _1;
+  _3 = (double) i_14;
+  _4 = _3 * 1.000000000000000055511151231257827021181583404541015625e-1;
+  _5 = _2 + _4;
+  _6 = (float) _5;
+  arr[2] = _6;
+  i_33 = i_14 + 1;
+
+  <bb 4> :
+  # i_14 = PHI <i_21(2), i_33(3)>
+  n.0_7 = n;
+  if (i_14 <= n.0_7)
+    goto <bb 3>; [INV]
+  else
+    goto <bb 5>; [INV]
+
+  <bb 5> :
+  _8 = arr[1];
+  _9 = (int) _8;
+  _10 = arr[0];
+  _11 = (int) _10;
+  sum1_23 = add (_11, _9);
+  print_message ();
+  printf ("integer: %d\n", sum1_23);
+  printf ("floating: %f\n", 3.140000000000000124344978758017532527446746826171875e+0);
+  printf ("constant: %d\n", 42);
+  _12 = arr[2];
+  _13 = (double) _12;
+  printf ("sum2: %f\n", _13);
+  _29 = 0;
+  arr ={v} {CLOBBER(eol)};
+  n ={v} {CLOBBER(eol)};
+  return _29;
+
+}
+
+

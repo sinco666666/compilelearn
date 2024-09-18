@@ -1,0 +1,1135 @@
+
+;; Function print_message (print_message, funcdef_no=24, decl_uid=3954, cgraph_uid=25, symbol_order=24)
+
+Points-to analysis
+
+Constraints:
+
+ANYTHING = &ANYTHING
+ESCAPED = *ESCAPED
+ESCAPED = ESCAPED + UNKNOWN
+*ESCAPED = NONLOCAL
+NONLOCAL = &NONLOCAL
+NONLOCAL = &ESCAPED
+INTEGER = &ANYTHING
+callescape(9) = NONLOCAL
+CALLUSED(10) = callescape(9)
+callarg(12) = &STRING
+callarg(12) = callarg(12) + UNKNOWN
+callarg(12) = *callarg(12) + UNKNOWN
+CALLUSED(10) = callarg(12)
+*callarg(12) = callescape(9)
+CALLCLOBBERED(11) = callarg(12)
+callescape(9) = callarg(12)
+ESCAPED = &STRING
+
+Collapsing static cycles and doing variable substitution
+Building predecessor graph
+Detecting pointer and location equivalences
+
+
+// The constraint graph before var-substitution in dot format:
+strict digraph {
+  node [
+    shape = box
+  ]
+  edge [
+    fontsize = "12"
+  ]
+
+  // List of nodes and complex constraints in the constraint graph:
+"NULL";
+"ANYTHING"[label="ANYTHING = { 2 }"];
+"STRING";
+"ESCAPED"[label="ESCAPED = { 3 }"];
+"NONLOCAL"[label="NONLOCAL = { 4 5 }"];
+"STOREDANYTHING";
+"INTEGER"[label="INTEGER = { 2 }"];
+"puts";
+"callescape(9)";
+"CALLUSED(10)";
+"CALLCLOBBERED(11)";
+"callarg(12)"[label="callarg(12) = { 3 }"];
+"*NULL";
+"*ANYTHING";
+"*STRING";
+"*ESCAPED";
+"*NONLOCAL";
+"*STOREDANYTHING";
+"*INTEGER";
+"*puts";
+"*callescape(9)";
+"*CALLUSED(10)";
+"*CALLCLOBBERED(11)";
+"*callarg(12)";
+
+  // Edges in the constraint graph:
+"*ESCAPED" -> "ESCAPED";
+"NONLOCAL" -> "callescape(9)";
+"callarg(12)" -> "callescape(9)";
+"callescape(9)" -> "CALLUSED(10)";
+"callarg(12)" -> "CALLUSED(10)";
+"callarg(12)" -> "CALLCLOBBERED(11)";
+"NONLOCAL" -> "*ESCAPED";
+"callescape(9)" -> "*callarg(12)";
+}
+
+
+Rewriting constraints and unifying variables
+Uniting pointer but not location equivalent variables
+Finding indirect cycles
+
+
+// The constraint graph before solve-graph in dot format:
+strict digraph {
+  node [
+    shape = box
+  ]
+  edge [
+    fontsize = "12"
+  ]
+
+  // List of nodes and complex constraints in the constraint graph:
+"NULL";
+"ANYTHING";
+"STRING";
+"ESCAPED" [label="\N\nESCAPED = ESCAPED + UNKNOWN\lESCAPED = *ESCAPED\l*ESCAPED = NONLOCAL\l"];
+"NONLOCAL";
+"STOREDANYTHING";
+"INTEGER";
+"puts";
+"callescape(9)";
+"callarg(12)" [label="\N\ncallarg(12) = callarg(12) + UNKNOWN\lcallarg(12) = *callarg(12) + UNKNOWN\l*callarg(12) = callescape(9)\l"];
+
+  // Edges in the constraint graph:
+"NONLOCAL" -> "callescape(9)";
+"STOREDANYTHING" -> "ESCAPED";
+"STOREDANYTHING" -> "callarg(12)";
+"callarg(12)" -> "callescape(9)";
+}
+
+
+Solving graph
+
+
+// The constraint graph after solve-graph in dot format:
+strict digraph {
+  node [
+    shape = box
+  ]
+  edge [
+    fontsize = "12"
+  ]
+
+  // List of nodes and complex constraints in the constraint graph:
+"NULL";
+"ANYTHING";
+"STRING";
+"ESCAPED" [label="\N\nESCAPED = ESCAPED + UNKNOWN\lESCAPED = *ESCAPED\l*ESCAPED = NONLOCAL\l"];
+"NONLOCAL";
+"STOREDANYTHING";
+"INTEGER";
+"puts";
+"callescape(9)";
+"callarg(12)" [label="\N\ncallarg(12) = callarg(12) + UNKNOWN\lcallarg(12) = *callarg(12) + UNKNOWN\l*callarg(12) = callescape(9)\l"];
+
+  // Edges in the constraint graph:
+"NONLOCAL" -> "callescape(9)";
+"STOREDANYTHING" -> "ESCAPED";
+"STOREDANYTHING" -> "callarg(12)";
+"callarg(12)" -> "callescape(9)";
+}
+
+
+
+Points-to sets
+
+ANYTHING = { ANYTHING }
+ESCAPED = { STRING }
+NONLOCAL = { ESCAPED NONLOCAL }
+STOREDANYTHING = { }
+INTEGER = { ANYTHING }
+puts = { }
+callescape(9) = { STRING ESCAPED NONLOCAL }
+CALLUSED(10) = { STRING ESCAPED NONLOCAL } same as callescape(9)
+CALLCLOBBERED(11) = { STRING } same as callarg(12)
+callarg(12) = { STRING }
+
+
+Alias information for print_message
+
+Aliased symbols
+
+
+Call clobber information
+
+ESCAPED, points-to vars: { }
+
+Flow-insensitive points-to information
+
+
+void print_message ()
+{
+  <bb 2> [local count: 1073741824]:
+  __builtin_puts (&"fundamentals of compiling"[0]);
+  return;
+
+}
+
+
+
+;; Function add (add, funcdef_no=25, decl_uid=3957, cgraph_uid=26, symbol_order=25)
+
+Points-to analysis
+
+Constraints:
+
+ANYTHING = &ANYTHING
+ESCAPED = *ESCAPED
+ESCAPED = ESCAPED + UNKNOWN
+*ESCAPED = NONLOCAL
+NONLOCAL = &NONLOCAL
+NONLOCAL = &ESCAPED
+INTEGER = &ANYTHING
+a = &NONLOCAL
+b = &NONLOCAL
+_3 = a + UNKNOWN
+_3 = b + UNKNOWN
+
+Collapsing static cycles and doing variable substitution
+Building predecessor graph
+Detecting pointer and location equivalences
+
+
+// The constraint graph before var-substitution in dot format:
+strict digraph {
+  node [
+    shape = box
+  ]
+  edge [
+    fontsize = "12"
+  ]
+
+  // List of nodes and complex constraints in the constraint graph:
+"NULL";
+"ANYTHING"[label="ANYTHING = { 2 }"];
+"STRING";
+"ESCAPED";
+"NONLOCAL"[label="NONLOCAL = { 4 5 }"];
+"STOREDANYTHING";
+"INTEGER"[label="INTEGER = { 2 }"];
+"a"[label="a = { 5 }"];
+"b"[label="b = { 5 }"];
+"_3";
+"add";
+"*NULL";
+"*ANYTHING";
+"*STRING";
+"*ESCAPED";
+"*NONLOCAL";
+"*STOREDANYTHING";
+"*INTEGER";
+"*a";
+"*b";
+"*_3";
+"*add";
+
+  // Edges in the constraint graph:
+"*ESCAPED" -> "ESCAPED";
+"NONLOCAL" -> "*ESCAPED";
+}
+
+
+Rewriting constraints and unifying variables
+Uniting pointer but not location equivalent variables
+Finding indirect cycles
+
+
+// The constraint graph before solve-graph in dot format:
+strict digraph {
+  node [
+    shape = box
+  ]
+  edge [
+    fontsize = "12"
+  ]
+
+  // List of nodes and complex constraints in the constraint graph:
+"NULL";
+"ANYTHING";
+"STRING";
+"ESCAPED" [label="\N\nESCAPED = ESCAPED + UNKNOWN\lESCAPED = *ESCAPED\l*ESCAPED = NONLOCAL\l"];
+"NONLOCAL";
+"STOREDANYTHING";
+"INTEGER";
+"a" [label="\N\n_3 = a + UNKNOWN\l"];
+"_3";
+"add";
+
+  // Edges in the constraint graph:
+"STOREDANYTHING" -> "ESCAPED";
+"STOREDANYTHING" -> "_3";
+}
+
+
+Solving graph
+
+
+// The constraint graph after solve-graph in dot format:
+strict digraph {
+  node [
+    shape = box
+  ]
+  edge [
+    fontsize = "12"
+  ]
+
+  // List of nodes and complex constraints in the constraint graph:
+"NULL";
+"ANYTHING";
+"STRING";
+"ESCAPED" [label="\N\nESCAPED = ESCAPED + UNKNOWN\lESCAPED = *ESCAPED\l*ESCAPED = NONLOCAL\l"];
+"NONLOCAL";
+"STOREDANYTHING";
+"INTEGER";
+"a" [label="\N\n_3 = a + UNKNOWN\l"];
+"_3";
+"add";
+
+  // Edges in the constraint graph:
+"STOREDANYTHING" -> "ESCAPED";
+"STOREDANYTHING" -> "_3";
+}
+
+
+
+Points-to sets
+
+ANYTHING = { ANYTHING }
+ESCAPED = { ESCAPED NONLOCAL }
+NONLOCAL = { ESCAPED NONLOCAL }
+STOREDANYTHING = { }
+INTEGER = { ANYTHING }
+a = { NONLOCAL }
+b = { NONLOCAL } same as a
+_3 = { NONLOCAL }
+add = { }
+
+
+Alias information for add
+
+Aliased symbols
+
+
+Call clobber information
+
+ESCAPED, points-to non-local, points-to vars: { }
+
+Flow-insensitive points-to information
+
+
+int add (int a, int b)
+{
+  int _3;
+
+  <bb 2> [local count: 1073741824]:
+  _3 = a_1(D) + b_2(D);
+  return _3;
+
+}
+
+
+
+;; Function main (main, funcdef_no=26, decl_uid=3964, cgraph_uid=27, symbol_order=26) (executed once)
+
+Points-to analysis
+
+Constraints:
+
+ANYTHING = &ANYTHING
+ESCAPED = *ESCAPED
+ESCAPED = ESCAPED + UNKNOWN
+*ESCAPED = NONLOCAL
+NONLOCAL = &NONLOCAL
+NONLOCAL = &ESCAPED
+INTEGER = &ANYTHING
+callescape(9) = NONLOCAL
+CALLUSED(10) = callescape(9)
+callarg(12) = &STRING
+callarg(12) = callarg(12) + UNKNOWN
+callarg(12) = *callarg(12) + UNKNOWN
+CALLUSED(10) = callarg(12)
+*callarg(12) = callescape(9)
+CALLCLOBBERED(11) = callarg(12)
+callescape(9) = callarg(12)
+ESCAPED = &STRING
+callarg(13) = &n
+callarg(13) = callarg(13) + UNKNOWN
+callarg(13) = *callarg(13) + UNKNOWN
+CALLUSED(10) = callarg(13)
+*callarg(13) = callescape(9)
+CALLCLOBBERED(11) = callarg(13)
+callescape(9) = callarg(13)
+ESCAPED = &n
+_1 = arr$2_12
+_2 = i_8 + UNKNOWN
+_3 = _2 + UNKNOWN
+_3 = &NONLOCAL
+_4 = _1 + UNKNOWN
+_4 = _3 + UNKNOWN
+_5 = _4
+i_17 = i_8 + UNKNOWN
+i_17 = &NONLOCAL
+i_8 = &NULL
+i_8 = i_17
+arr$2_12 = &NONLOCAL
+arr$2_12 = _5
+n.0_6 = n
+callescape(25) = &NONLOCAL
+CALLUSED(26) = callescape(25)
+callarg(28) = &NONLOCAL
+callarg(28) = callarg(28) + UNKNOWN
+callarg(29) = &NONLOCAL
+callarg(29) = callarg(29) + UNKNOWN
+sum1_13 = &NONLOCAL
+sum1_13 = callarg(28)
+sum1_13 = callarg(29)
+callescape(32) = NONLOCAL
+CALLUSED(33) = callescape(32)
+callescape(36) = NONLOCAL
+CALLUSED(37) = callescape(36)
+callarg(39) = &NONLOCAL
+callarg(39) = callarg(39) + UNKNOWN
+callarg(39) = *callarg(39) + UNKNOWN
+CALLUSED(37) = callarg(39)
+*callarg(39) = callescape(36)
+CALLCLOBBERED(38) = callarg(39)
+callescape(36) = callarg(39)
+ESCAPED = &NONLOCAL
+callarg(40) = &STRING
+callarg(40) = callarg(40) + UNKNOWN
+callarg(40) = *callarg(40) + UNKNOWN
+CALLUSED(37) = callarg(40)
+*callarg(40) = callescape(36)
+CALLCLOBBERED(38) = callarg(40)
+callescape(36) = callarg(40)
+ESCAPED = &STRING
+callarg(41) = sum1_13
+callarg(41) = callarg(41) + UNKNOWN
+callarg(41) = *callarg(41) + UNKNOWN
+CALLUSED(37) = callarg(41)
+*callarg(41) = callescape(36)
+CALLCLOBBERED(38) = callarg(41)
+callescape(36) = callarg(41)
+ESCAPED = sum1_13
+callescape(42) = NONLOCAL
+CALLUSED(43) = callescape(42)
+callarg(45) = &NONLOCAL
+callarg(45) = callarg(45) + UNKNOWN
+callarg(45) = *callarg(45) + UNKNOWN
+CALLUSED(43) = callarg(45)
+*callarg(45) = callescape(42)
+CALLCLOBBERED(44) = callarg(45)
+callescape(42) = callarg(45)
+ESCAPED = &NONLOCAL
+callarg(46) = &STRING
+callarg(46) = callarg(46) + UNKNOWN
+callarg(46) = *callarg(46) + UNKNOWN
+CALLUSED(43) = callarg(46)
+*callarg(46) = callescape(42)
+CALLCLOBBERED(44) = callarg(46)
+callescape(42) = callarg(46)
+ESCAPED = &STRING
+callarg(47) = &NONLOCAL
+callarg(47) = callarg(47) + UNKNOWN
+callarg(47) = *callarg(47) + UNKNOWN
+CALLUSED(43) = callarg(47)
+*callarg(47) = callescape(42)
+CALLCLOBBERED(44) = callarg(47)
+callescape(42) = callarg(47)
+ESCAPED = &NONLOCAL
+callescape(48) = NONLOCAL
+CALLUSED(49) = callescape(48)
+callarg(51) = &NONLOCAL
+callarg(51) = callarg(51) + UNKNOWN
+callarg(51) = *callarg(51) + UNKNOWN
+CALLUSED(49) = callarg(51)
+*callarg(51) = callescape(48)
+CALLCLOBBERED(50) = callarg(51)
+callescape(48) = callarg(51)
+ESCAPED = &NONLOCAL
+callarg(52) = &STRING
+callarg(52) = callarg(52) + UNKNOWN
+callarg(52) = *callarg(52) + UNKNOWN
+CALLUSED(49) = callarg(52)
+*callarg(52) = callescape(48)
+CALLCLOBBERED(50) = callarg(52)
+callescape(48) = callarg(52)
+ESCAPED = &STRING
+callarg(53) = &NONLOCAL
+callarg(53) = callarg(53) + UNKNOWN
+callarg(53) = *callarg(53) + UNKNOWN
+CALLUSED(49) = callarg(53)
+*callarg(53) = callescape(48)
+CALLCLOBBERED(50) = callarg(53)
+callescape(48) = callarg(53)
+ESCAPED = &NONLOCAL
+_7 = arr$2_12
+callescape(55) = NONLOCAL
+CALLUSED(56) = callescape(55)
+callarg(58) = &NONLOCAL
+callarg(58) = callarg(58) + UNKNOWN
+callarg(58) = *callarg(58) + UNKNOWN
+CALLUSED(56) = callarg(58)
+*callarg(58) = callescape(55)
+CALLCLOBBERED(57) = callarg(58)
+callescape(55) = callarg(58)
+ESCAPED = &NONLOCAL
+callarg(59) = &STRING
+callarg(59) = callarg(59) + UNKNOWN
+callarg(59) = *callarg(59) + UNKNOWN
+CALLUSED(56) = callarg(59)
+*callarg(59) = callescape(55)
+CALLCLOBBERED(57) = callarg(59)
+callescape(55) = callarg(59)
+ESCAPED = &STRING
+callarg(60) = _7
+callarg(60) = callarg(60) + UNKNOWN
+callarg(60) = *callarg(60) + UNKNOWN
+CALLUSED(56) = callarg(60)
+*callarg(60) = callescape(55)
+CALLCLOBBERED(57) = callarg(60)
+callescape(55) = callarg(60)
+ESCAPED = _7
+
+Collapsing static cycles and doing variable substitution
+Building predecessor graph
+Detecting pointer and location equivalences
+
+
+// The constraint graph before var-substitution in dot format:
+strict digraph {
+  node [
+    shape = box
+  ]
+  edge [
+    fontsize = "12"
+  ]
+
+  // List of nodes and complex constraints in the constraint graph:
+"NULL";
+"ANYTHING"[label="ANYTHING = { 2 }"];
+"STRING";
+"ESCAPED"[label="ESCAPED = { 3 5 8 }"];
+"NONLOCAL"[label="NONLOCAL = { 4 5 }"];
+"STOREDANYTHING";
+"INTEGER"[label="INTEGER = { 2 }"];
+"n";
+"*__isoc99_scanf";
+"callescape(9)";
+"CALLUSED(10)";
+"CALLCLOBBERED(11)";
+"callarg(12)"[label="callarg(12) = { 3 }"];
+"callarg(13)"[label="callarg(13) = { 8 }"];
+"_1";
+"arr$2_12"[label="arr$2_12 = { 5 }"];
+"_2";
+"i_8"[label="i_8 = { 1 }"];
+"_3"[label="_3 = { 5 }"];
+"_4";
+"_5";
+"i_17"[label="i_17 = { 5 }"];
+"n.0_6";
+"add";
+"callescape(25)"[label="callescape(25) = { 5 }"];
+"CALLUSED(26)";
+"CALLCLOBBERED(27)";
+"callarg(28)"[label="callarg(28) = { 5 }"];
+"callarg(29)"[label="callarg(29) = { 5 }"];
+"sum1_13"[label="sum1_13 = { 5 }"];
+"print_message";
+"callescape(32)";
+"CALLUSED(33)";
+"CALLCLOBBERED(34)";
+"__printf_chk";
+"callescape(36)";
+"CALLUSED(37)";
+"CALLCLOBBERED(38)";
+"callarg(39)"[label="callarg(39) = { 5 }"];
+"callarg(40)"[label="callarg(40) = { 3 }"];
+"callarg(41)";
+"callescape(42)";
+"CALLUSED(43)";
+"CALLCLOBBERED(44)";
+"callarg(45)"[label="callarg(45) = { 5 }"];
+"callarg(46)"[label="callarg(46) = { 3 }"];
+"callarg(47)"[label="callarg(47) = { 5 }"];
+"callescape(48)";
+"CALLUSED(49)";
+"CALLCLOBBERED(50)";
+"callarg(51)"[label="callarg(51) = { 5 }"];
+"callarg(52)"[label="callarg(52) = { 3 }"];
+"callarg(53)"[label="callarg(53) = { 5 }"];
+"_7";
+"callescape(55)";
+"CALLUSED(56)";
+"CALLCLOBBERED(57)";
+"callarg(58)"[label="callarg(58) = { 5 }"];
+"callarg(59)"[label="callarg(59) = { 3 }"];
+"callarg(60)";
+"main";
+"*NULL";
+"*ANYTHING";
+"*STRING";
+"*ESCAPED";
+"*NONLOCAL";
+"*STOREDANYTHING";
+"*INTEGER";
+"*n";
+"**__isoc99_scanf";
+"*callescape(9)";
+"*CALLUSED(10)";
+"*CALLCLOBBERED(11)";
+"*callarg(12)";
+"*callarg(13)";
+"*_1";
+"*arr$2_12";
+"*_2";
+"*i_8";
+"*_3";
+"*_4";
+"*_5";
+"*i_17";
+"*n.0_6";
+"*add";
+"*callescape(25)";
+"*CALLUSED(26)";
+"*CALLCLOBBERED(27)";
+"*callarg(28)";
+"*callarg(29)";
+"*sum1_13";
+"*print_message";
+"*callescape(32)";
+"*CALLUSED(33)";
+"*CALLCLOBBERED(34)";
+"*__printf_chk";
+"*callescape(36)";
+"*CALLUSED(37)";
+"*CALLCLOBBERED(38)";
+"*callarg(39)";
+"*callarg(40)";
+"*callarg(41)";
+"*callescape(42)";
+"*CALLUSED(43)";
+"*CALLCLOBBERED(44)";
+"*callarg(45)";
+"*callarg(46)";
+"*callarg(47)";
+"*callescape(48)";
+"*CALLUSED(49)";
+"*CALLCLOBBERED(50)";
+"*callarg(51)";
+"*callarg(52)";
+"*callarg(53)";
+"*_7";
+"*callescape(55)";
+"*CALLUSED(56)";
+"*CALLCLOBBERED(57)";
+"*callarg(58)";
+"*callarg(59)";
+"*callarg(60)";
+"*main";
+
+  // Edges in the constraint graph:
+"sum1_13" -> "ESCAPED";
+"_7" -> "ESCAPED";
+"*ESCAPED" -> "ESCAPED";
+"NONLOCAL" -> "callescape(9)";
+"callarg(12)" -> "callescape(9)";
+"callarg(13)" -> "callescape(9)";
+"callescape(9)" -> "CALLUSED(10)";
+"callarg(12)" -> "CALLUSED(10)";
+"callarg(13)" -> "CALLUSED(10)";
+"callarg(12)" -> "CALLCLOBBERED(11)";
+"callarg(13)" -> "CALLCLOBBERED(11)";
+"arr$2_12" -> "_1";
+"_5" -> "arr$2_12";
+"i_17" -> "i_8";
+"_4" -> "_5";
+"n" -> "n.0_6";
+"callescape(25)" -> "CALLUSED(26)";
+"callarg(28)" -> "sum1_13";
+"callarg(29)" -> "sum1_13";
+"NONLOCAL" -> "callescape(32)";
+"callescape(32)" -> "CALLUSED(33)";
+"NONLOCAL" -> "callescape(36)";
+"callarg(39)" -> "callescape(36)";
+"callarg(40)" -> "callescape(36)";
+"callarg(41)" -> "callescape(36)";
+"callescape(36)" -> "CALLUSED(37)";
+"callarg(39)" -> "CALLUSED(37)";
+"callarg(40)" -> "CALLUSED(37)";
+"callarg(41)" -> "CALLUSED(37)";
+"callarg(39)" -> "CALLCLOBBERED(38)";
+"callarg(40)" -> "CALLCLOBBERED(38)";
+"callarg(41)" -> "CALLCLOBBERED(38)";
+"sum1_13" -> "callarg(41)";
+"NONLOCAL" -> "callescape(42)";
+"callarg(45)" -> "callescape(42)";
+"callarg(46)" -> "callescape(42)";
+"callarg(47)" -> "callescape(42)";
+"callescape(42)" -> "CALLUSED(43)";
+"callarg(45)" -> "CALLUSED(43)";
+"callarg(46)" -> "CALLUSED(43)";
+"callarg(47)" -> "CALLUSED(43)";
+"callarg(45)" -> "CALLCLOBBERED(44)";
+"callarg(46)" -> "CALLCLOBBERED(44)";
+"callarg(47)" -> "CALLCLOBBERED(44)";
+"NONLOCAL" -> "callescape(48)";
+"callarg(51)" -> "callescape(48)";
+"callarg(52)" -> "callescape(48)";
+"callarg(53)" -> "callescape(48)";
+"callescape(48)" -> "CALLUSED(49)";
+"callarg(51)" -> "CALLUSED(49)";
+"callarg(52)" -> "CALLUSED(49)";
+"callarg(53)" -> "CALLUSED(49)";
+"callarg(51)" -> "CALLCLOBBERED(50)";
+"callarg(52)" -> "CALLCLOBBERED(50)";
+"callarg(53)" -> "CALLCLOBBERED(50)";
+"arr$2_12" -> "_7";
+"NONLOCAL" -> "callescape(55)";
+"callarg(58)" -> "callescape(55)";
+"callarg(59)" -> "callescape(55)";
+"callarg(60)" -> "callescape(55)";
+"callescape(55)" -> "CALLUSED(56)";
+"callarg(58)" -> "CALLUSED(56)";
+"callarg(59)" -> "CALLUSED(56)";
+"callarg(60)" -> "CALLUSED(56)";
+"callarg(58)" -> "CALLCLOBBERED(57)";
+"callarg(59)" -> "CALLCLOBBERED(57)";
+"callarg(60)" -> "CALLCLOBBERED(57)";
+"_7" -> "callarg(60)";
+"NONLOCAL" -> "*ESCAPED";
+"callescape(9)" -> "*callarg(12)";
+"callescape(9)" -> "*callarg(13)";
+"callescape(36)" -> "*callarg(39)";
+"callescape(36)" -> "*callarg(40)";
+"callescape(36)" -> "*callarg(41)";
+"callescape(42)" -> "*callarg(45)";
+"callescape(42)" -> "*callarg(46)";
+"callescape(42)" -> "*callarg(47)";
+"callescape(48)" -> "*callarg(51)";
+"callescape(48)" -> "*callarg(52)";
+"callescape(48)" -> "*callarg(53)";
+"callescape(55)" -> "*callarg(58)";
+"callescape(55)" -> "*callarg(59)";
+"callescape(55)" -> "*callarg(60)";
+}
+
+
+Rewriting constraints and unifying variables
+Uniting pointer but not location equivalent variables
+Finding indirect cycles
+
+
+// The constraint graph before solve-graph in dot format:
+strict digraph {
+  node [
+    shape = box
+  ]
+  edge [
+    fontsize = "12"
+  ]
+
+  // List of nodes and complex constraints in the constraint graph:
+"NULL";
+"ANYTHING";
+"STRING";
+"ESCAPED" [label="\N\nESCAPED = ESCAPED + UNKNOWN\lESCAPED = *ESCAPED\l*ESCAPED = NONLOCAL\l"];
+"STOREDANYTHING";
+"INTEGER";
+"*__isoc99_scanf";
+"callescape(9)";
+"CALLCLOBBERED(11)";
+"callarg(12)" [label="\N\ncallarg(12) = callarg(12) + UNKNOWN\lcallarg(12) = *callarg(12) + UNKNOWN\l*callarg(12) = callescape(9)\l"];
+"callarg(13)" [label="\N\ncallarg(13) = callarg(13) + UNKNOWN\lcallarg(13) = *callarg(13) + UNKNOWN\l*callarg(13) = callescape(9)\l"];
+"_1" [label="\N\n_4 = _1 + UNKNOWN\l"];
+"_2" [label="\N\n_3 = _2 + UNKNOWN\l"];
+"i_8" [label="\N\n_2 = i_8 + UNKNOWN\li_17 = i_8 + UNKNOWN\l"];
+"_3" [label="\N\n_4 = _3 + UNKNOWN\l"];
+"_4";
+"i_17";
+"n.0_6";
+"add";
+"callescape(25)";
+"CALLCLOBBERED(27)";
+"callarg(28)" [label="\N\ncallarg(28) = callarg(28) + UNKNOWN\l"];
+"callarg(29)" [label="\N\ncallarg(29) = callarg(29) + UNKNOWN\l"];
+"sum1_13";
+"print_message";
+"callescape(32)";
+"CALLCLOBBERED(34)";
+"__printf_chk";
+"callescape(36)";
+"CALLCLOBBERED(38)";
+"callarg(39)" [label="\N\ncallarg(39) = callarg(39) + UNKNOWN\lcallarg(39) = *callarg(39) + UNKNOWN\l*callarg(39) = callescape(36)\l"];
+"callarg(40)" [label="\N\ncallarg(40) = callarg(40) + UNKNOWN\lcallarg(40) = *callarg(40) + UNKNOWN\l*callarg(40) = callescape(36)\l"];
+"callarg(41)" [label="\N\ncallarg(41) = callarg(41) + UNKNOWN\lcallarg(41) = *callarg(41) + UNKNOWN\l*callarg(41) = callescape(36)\l"];
+"callescape(42)";
+"CALLCLOBBERED(44)";
+"callarg(45)" [label="\N\ncallarg(45) = callarg(45) + UNKNOWN\lcallarg(45) = *callarg(45) + UNKNOWN\l*callarg(45) = callescape(42)\l"];
+"callarg(46)" [label="\N\ncallarg(46) = callarg(46) + UNKNOWN\lcallarg(46) = *callarg(46) + UNKNOWN\l*callarg(46) = callescape(42)\l"];
+"callarg(47)" [label="\N\ncallarg(47) = callarg(47) + UNKNOWN\lcallarg(47) = *callarg(47) + UNKNOWN\l*callarg(47) = callescape(42)\l"];
+"callescape(48)";
+"CALLCLOBBERED(50)";
+"callarg(51)" [label="\N\ncallarg(51) = callarg(51) + UNKNOWN\lcallarg(51) = *callarg(51) + UNKNOWN\l*callarg(51) = callescape(48)\l"];
+"callarg(52)" [label="\N\ncallarg(52) = callarg(52) + UNKNOWN\lcallarg(52) = *callarg(52) + UNKNOWN\l*callarg(52) = callescape(48)\l"];
+"callarg(53)" [label="\N\ncallarg(53) = callarg(53) + UNKNOWN\lcallarg(53) = *callarg(53) + UNKNOWN\l*callarg(53) = callescape(48)\l"];
+"callescape(55)";
+"CALLCLOBBERED(57)";
+"callarg(58)" [label="\N\ncallarg(58) = callarg(58) + UNKNOWN\lcallarg(58) = *callarg(58) + UNKNOWN\l*callarg(58) = callescape(55)\l"];
+"callarg(59)" [label="\N\ncallarg(59) = callarg(59) + UNKNOWN\lcallarg(59) = *callarg(59) + UNKNOWN\l*callarg(59) = callescape(55)\l"];
+"callarg(60)" [label="\N\ncallarg(60) = callarg(60) + UNKNOWN\lcallarg(60) = *callarg(60) + UNKNOWN\l*callarg(60) = callescape(55)\l"];
+"main";
+
+  // Edges in the constraint graph:
+"STOREDANYTHING" -> "ESCAPED";
+"STOREDANYTHING" -> "n.0_6";
+"STOREDANYTHING" -> "callarg(12)";
+"STOREDANYTHING" -> "callarg(13)";
+"STOREDANYTHING" -> "_2";
+"STOREDANYTHING" -> "_3";
+"STOREDANYTHING" -> "_4";
+"STOREDANYTHING" -> "i_17";
+"STOREDANYTHING" -> "callarg(28)";
+"STOREDANYTHING" -> "callarg(29)";
+"STOREDANYTHING" -> "callarg(39)";
+"STOREDANYTHING" -> "callarg(40)";
+"STOREDANYTHING" -> "callarg(41)";
+"STOREDANYTHING" -> "callarg(45)";
+"STOREDANYTHING" -> "callarg(46)";
+"STOREDANYTHING" -> "callarg(47)";
+"STOREDANYTHING" -> "callarg(51)";
+"STOREDANYTHING" -> "callarg(52)";
+"STOREDANYTHING" -> "callarg(53)";
+"STOREDANYTHING" -> "callarg(58)";
+"STOREDANYTHING" -> "callarg(59)";
+"STOREDANYTHING" -> "callarg(60)";
+"callarg(12)" -> "callescape(9)";
+"callarg(12)" -> "CALLCLOBBERED(11)";
+"callarg(13)" -> "callescape(9)";
+"callarg(13)" -> "CALLCLOBBERED(11)";
+"_1" -> "ESCAPED";
+"_1" -> "callarg(60)";
+"_4" -> "_1";
+"i_17" -> "i_8";
+"callarg(28)" -> "sum1_13";
+"callarg(29)" -> "sum1_13";
+"sum1_13" -> "ESCAPED";
+"sum1_13" -> "callarg(41)";
+"callescape(32)" -> "callescape(9)";
+"callescape(32)" -> "callescape(36)";
+"callescape(32)" -> "callescape(42)";
+"callescape(32)" -> "callescape(48)";
+"callescape(32)" -> "callescape(55)";
+"callarg(39)" -> "callescape(36)";
+"callarg(39)" -> "CALLCLOBBERED(38)";
+"callarg(40)" -> "callescape(36)";
+"callarg(40)" -> "CALLCLOBBERED(38)";
+"callarg(41)" -> "callescape(36)";
+"callarg(41)" -> "CALLCLOBBERED(38)";
+"callarg(45)" -> "callescape(42)";
+"callarg(45)" -> "CALLCLOBBERED(44)";
+"callarg(46)" -> "callescape(42)";
+"callarg(46)" -> "CALLCLOBBERED(44)";
+"callarg(47)" -> "callescape(42)";
+"callarg(47)" -> "CALLCLOBBERED(44)";
+"callarg(51)" -> "callescape(48)";
+"callarg(51)" -> "CALLCLOBBERED(50)";
+"callarg(52)" -> "callescape(48)";
+"callarg(52)" -> "CALLCLOBBERED(50)";
+"callarg(53)" -> "callescape(48)";
+"callarg(53)" -> "CALLCLOBBERED(50)";
+"callarg(58)" -> "callescape(55)";
+"callarg(58)" -> "CALLCLOBBERED(57)";
+"callarg(59)" -> "callescape(55)";
+"callarg(59)" -> "CALLCLOBBERED(57)";
+"callarg(60)" -> "callescape(55)";
+"callarg(60)" -> "CALLCLOBBERED(57)";
+}
+
+
+Solving graph
+
+
+// The constraint graph after solve-graph in dot format:
+strict digraph {
+  node [
+    shape = box
+  ]
+  edge [
+    fontsize = "12"
+  ]
+
+  // List of nodes and complex constraints in the constraint graph:
+"NULL";
+"ANYTHING";
+"STRING";
+"ESCAPED" [label="\N\nESCAPED = ESCAPED + UNKNOWN\lESCAPED = *ESCAPED\l*ESCAPED = callescape(32)\l"];
+"STOREDANYTHING";
+"INTEGER";
+"*__isoc99_scanf";
+"callescape(9)";
+"CALLCLOBBERED(11)";
+"callarg(12)" [label="\N\ncallarg(12) = callarg(12) + UNKNOWN\lcallarg(12) = *callarg(12) + UNKNOWN\l*callarg(12) = callescape(9)\l"];
+"callarg(13)" [label="\N\ncallarg(13) = callarg(13) + UNKNOWN\lcallarg(13) = *callarg(13) + UNKNOWN\l*callarg(13) = callescape(9)\l"];
+"_1" [label="\N\n_4 = _1 + UNKNOWN\l"];
+"_2" [label="\N\n_3 = _2 + UNKNOWN\l"];
+"i_8" [label="\N\n_2 = i_8 + UNKNOWN\li_17 = i_8 + UNKNOWN\l"];
+"_3" [label="\N\n_4 = _3 + UNKNOWN\l"];
+"_4";
+"i_17";
+"n.0_6";
+"add";
+"callescape(25)";
+"CALLCLOBBERED(27)";
+"callarg(28)" [label="\N\ncallarg(28) = callarg(28) + UNKNOWN\l"];
+"callarg(29)" [label="\N\ncallarg(29) = callarg(29) + UNKNOWN\l"];
+"sum1_13";
+"print_message";
+"callescape(32)";
+"CALLCLOBBERED(34)";
+"__printf_chk";
+"callescape(36)";
+"CALLCLOBBERED(38)";
+"callarg(39)" [label="\N\ncallarg(39) = callarg(39) + UNKNOWN\lcallarg(39) = *callarg(39) + UNKNOWN\l*callarg(39) = callescape(36)\l"];
+"callarg(40)" [label="\N\ncallarg(40) = callarg(40) + UNKNOWN\lcallarg(40) = *callarg(40) + UNKNOWN\l*callarg(40) = callescape(36)\l"];
+"callarg(41)" [label="\N\ncallarg(41) = callarg(41) + UNKNOWN\lcallarg(41) = *callarg(41) + UNKNOWN\l*callarg(41) = callescape(36)\l"];
+"callescape(42)";
+"CALLCLOBBERED(44)";
+"callarg(45)" [label="\N\ncallarg(45) = callarg(45) + UNKNOWN\lcallarg(45) = *callarg(45) + UNKNOWN\l*callarg(45) = callescape(42)\l"];
+"callarg(46)" [label="\N\ncallarg(46) = callarg(46) + UNKNOWN\lcallarg(46) = *callarg(46) + UNKNOWN\l*callarg(46) = callescape(42)\l"];
+"callarg(47)" [label="\N\ncallarg(47) = callarg(47) + UNKNOWN\lcallarg(47) = *callarg(47) + UNKNOWN\l*callarg(47) = callescape(42)\l"];
+"callescape(48)";
+"CALLCLOBBERED(50)";
+"callarg(51)" [label="\N\ncallarg(51) = callarg(51) + UNKNOWN\lcallarg(51) = *callarg(51) + UNKNOWN\l*callarg(51) = callescape(48)\l"];
+"callarg(52)" [label="\N\ncallarg(52) = callarg(52) + UNKNOWN\lcallarg(52) = *callarg(52) + UNKNOWN\l*callarg(52) = callescape(48)\l"];
+"callarg(53)" [label="\N\ncallarg(53) = callarg(53) + UNKNOWN\lcallarg(53) = *callarg(53) + UNKNOWN\l*callarg(53) = callescape(48)\l"];
+"callescape(55)";
+"CALLCLOBBERED(57)";
+"callarg(58)" [label="\N\ncallarg(58) = callarg(58) + UNKNOWN\lcallarg(58) = *callarg(58) + UNKNOWN\l*callarg(58) = callescape(55)\l"];
+"callarg(59)" [label="\N\ncallarg(59) = callarg(59) + UNKNOWN\lcallarg(59) = *callarg(59) + UNKNOWN\l*callarg(59) = callescape(55)\l"];
+"callarg(60)" [label="\N\ncallarg(60) = callarg(60) + UNKNOWN\lcallarg(60) = *callarg(60) + UNKNOWN\l*callarg(60) = callescape(55)\l"];
+"main";
+
+  // Edges in the constraint graph:
+"STOREDANYTHING" -> "ESCAPED";
+"STOREDANYTHING" -> "n.0_6";
+"STOREDANYTHING" -> "callarg(12)";
+"STOREDANYTHING" -> "callarg(13)";
+"STOREDANYTHING" -> "_2";
+"STOREDANYTHING" -> "_3";
+"STOREDANYTHING" -> "_4";
+"STOREDANYTHING" -> "i_17";
+"STOREDANYTHING" -> "callarg(28)";
+"STOREDANYTHING" -> "callarg(29)";
+"STOREDANYTHING" -> "callarg(39)";
+"STOREDANYTHING" -> "callarg(40)";
+"STOREDANYTHING" -> "callarg(41)";
+"STOREDANYTHING" -> "callarg(45)";
+"STOREDANYTHING" -> "callarg(46)";
+"STOREDANYTHING" -> "callarg(47)";
+"STOREDANYTHING" -> "callarg(51)";
+"STOREDANYTHING" -> "callarg(52)";
+"STOREDANYTHING" -> "callarg(53)";
+"STOREDANYTHING" -> "callarg(58)";
+"STOREDANYTHING" -> "callarg(59)";
+"STOREDANYTHING" -> "callarg(60)";
+"callescape(9)" -> "ESCAPED";
+"callescape(9)" -> "n.0_6";
+"callarg(12)" -> "callescape(9)";
+"callarg(12)" -> "CALLCLOBBERED(11)";
+"callarg(13)" -> "callescape(9)";
+"callarg(13)" -> "CALLCLOBBERED(11)";
+"_1" -> "ESCAPED";
+"_1" -> "callarg(60)";
+"_4" -> "_1";
+"i_17" -> "i_8";
+"n.0_6" -> "ESCAPED";
+"n.0_6" -> "callarg(13)";
+"callarg(28)" -> "sum1_13";
+"callarg(29)" -> "sum1_13";
+"sum1_13" -> "ESCAPED";
+"sum1_13" -> "callarg(41)";
+"callescape(32)" -> "ESCAPED";
+"callescape(32)" -> "callescape(9)";
+"callescape(32)" -> "n.0_6";
+"callescape(32)" -> "callescape(36)";
+"callescape(32)" -> "callarg(39)";
+"callescape(32)" -> "callarg(41)";
+"callescape(32)" -> "callescape(42)";
+"callescape(32)" -> "callarg(45)";
+"callescape(32)" -> "callarg(47)";
+"callescape(32)" -> "callescape(48)";
+"callescape(32)" -> "callarg(51)";
+"callescape(32)" -> "callarg(53)";
+"callescape(32)" -> "callescape(55)";
+"callescape(32)" -> "callarg(58)";
+"callescape(32)" -> "callarg(60)";
+"callescape(36)" -> "ESCAPED";
+"callarg(39)" -> "callescape(36)";
+"callarg(39)" -> "CALLCLOBBERED(38)";
+"callarg(40)" -> "callescape(36)";
+"callarg(40)" -> "CALLCLOBBERED(38)";
+"callarg(41)" -> "callescape(36)";
+"callarg(41)" -> "CALLCLOBBERED(38)";
+"callescape(42)" -> "ESCAPED";
+"callarg(45)" -> "callescape(42)";
+"callarg(45)" -> "CALLCLOBBERED(44)";
+"callarg(46)" -> "callescape(42)";
+"callarg(46)" -> "CALLCLOBBERED(44)";
+"callarg(47)" -> "callescape(42)";
+"callarg(47)" -> "CALLCLOBBERED(44)";
+"callescape(48)" -> "ESCAPED";
+"callarg(51)" -> "callescape(48)";
+"callarg(51)" -> "CALLCLOBBERED(50)";
+"callarg(52)" -> "callescape(48)";
+"callarg(52)" -> "CALLCLOBBERED(50)";
+"callarg(53)" -> "callescape(48)";
+"callarg(53)" -> "CALLCLOBBERED(50)";
+"callescape(55)" -> "ESCAPED";
+"callarg(58)" -> "callescape(55)";
+"callarg(58)" -> "CALLCLOBBERED(57)";
+"callarg(59)" -> "callescape(55)";
+"callarg(59)" -> "CALLCLOBBERED(57)";
+"callarg(60)" -> "callescape(55)";
+"callarg(60)" -> "CALLCLOBBERED(57)";
+}
+
+
+
+Points-to sets
+
+ANYTHING = { ANYTHING }
+ESCAPED = { NULL STRING ESCAPED NONLOCAL n }
+NONLOCAL = { ESCAPED NONLOCAL } same as callescape(32)
+STOREDANYTHING = { }
+INTEGER = { ANYTHING }
+n = { STRING ESCAPED NONLOCAL n } same as n.0_6
+*__isoc99_scanf = { }
+callescape(9) = { STRING ESCAPED NONLOCAL n }
+CALLUSED(10) = { STRING ESCAPED NONLOCAL n } same as callescape(9)
+CALLCLOBBERED(11) = { STRING ESCAPED NONLOCAL n }
+callarg(12) = { STRING }
+callarg(13) = { STRING ESCAPED NONLOCAL n }
+_1 = { NULL NONLOCAL }
+arr$2_12 = { NULL NONLOCAL } same as _1
+_2 = { NULL NONLOCAL }
+i_8 = { NULL NONLOCAL }
+_3 = { NULL NONLOCAL }
+_4 = { NULL NONLOCAL }
+_5 = { NULL NONLOCAL } same as _4
+i_17 = { NULL NONLOCAL }
+n.0_6 = { STRING ESCAPED NONLOCAL n }
+add = { }
+callescape(25) = { NONLOCAL }
+CALLUSED(26) = { NONLOCAL } same as callescape(25)
+CALLCLOBBERED(27) = { }
+callarg(28) = { NONLOCAL }
+callarg(29) = { NONLOCAL }
+sum1_13 = { NONLOCAL }
+print_message = { }
+callescape(32) = { ESCAPED NONLOCAL }
+CALLUSED(33) = { ESCAPED NONLOCAL } same as callescape(32)
+CALLCLOBBERED(34) = { }
+__printf_chk = { }
+callescape(36) = { STRING ESCAPED NONLOCAL }
+CALLUSED(37) = { STRING ESCAPED NONLOCAL } same as callescape(36)
+CALLCLOBBERED(38) = { STRING ESCAPED NONLOCAL }
+callarg(39) = { ESCAPED NONLOCAL }
+callarg(40) = { STRING }
+callarg(41) = { ESCAPED NONLOCAL }
+callescape(42) = { STRING ESCAPED NONLOCAL }
+CALLUSED(43) = { STRING ESCAPED NONLOCAL } same as callescape(42)
+CALLCLOBBERED(44) = { STRING ESCAPED NONLOCAL }
+callarg(45) = { ESCAPED NONLOCAL }
+callarg(46) = { STRING }
+callarg(47) = { ESCAPED NONLOCAL }
+callescape(48) = { STRING ESCAPED NONLOCAL }
+CALLUSED(49) = { STRING ESCAPED NONLOCAL } same as callescape(48)
+CALLCLOBBERED(50) = { STRING ESCAPED NONLOCAL }
+callarg(51) = { ESCAPED NONLOCAL }
+callarg(52) = { STRING }
+callarg(53) = { ESCAPED NONLOCAL }
+_7 = { NULL NONLOCAL } same as _1
+callescape(55) = { NULL STRING ESCAPED NONLOCAL }
+CALLUSED(56) = { NULL STRING ESCAPED NONLOCAL } same as callescape(55)
+CALLCLOBBERED(57) = { NULL STRING ESCAPED NONLOCAL }
+callarg(58) = { ESCAPED NONLOCAL }
+callarg(59) = { STRING }
+callarg(60) = { NULL ESCAPED NONLOCAL }
+main = { }
+
+
+Alias information for main
+
+Aliased symbols
+
+n, UID D.3967, int, is addressable
+
+Call clobber information
+
+ESCAPED, points-to non-local, points-to NULL, points-to vars: { D.3967 } (escaped)
+
+Flow-insensitive points-to information
+
+
+int main ()
+{
+  float arr$2;
+  int sum1;
+  int i;
+  int n;
+  double _1;
+  double _2;
+  double _3;
+  double _4;
+  float _5;
+  int n.0_6;
+  double _7;
+
+  <bb 2> [local count: 118111600]:
+  scanf ("%d", &n);
+  goto <bb 4>; [100.00%]
+
+  <bb 3> [local count: 955630225]:
+  _1 = (double) arr$2_12;
+  _2 = (double) i_8;
+  _3 = _2 * 1.000000000000000055511151231257827021181583404541015625e-1;
+  _4 = _1 + _3;
+  _5 = (float) _4;
+  i_17 = i_8 + 1;
+
+  <bb 4> [local count: 1073741824]:
+  # i_8 = PHI <0(2), i_17(3)>
+  # arr$2_12 = PHI <0.0(2), _5(3)>
+  n.0_6 = n;
+  if (n.0_6 >= i_8)
+    goto <bb 3>; [89.00%]
+  else
+    goto <bb 5>; [11.00%]
+
+  <bb 5> [local count: 118111600]:
+  sum1_13 = add (5, 7);
+  print_message ();
+  __printf_chk (2, "integer: %d\n", sum1_13);
+  __printf_chk (2, "floating: %f\n", 3.140000000000000124344978758017532527446746826171875e+0);
+  __printf_chk (2, "constant: %d\n", 42);
+  _7 = (double) arr$2_12;
+  __printf_chk (2, "sum2: %f\n", _7);
+  n ={v} {CLOBBER(eol)};
+  return 0;
+
+}
+
+

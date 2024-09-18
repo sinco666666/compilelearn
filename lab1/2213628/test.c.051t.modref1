@@ -1,0 +1,160 @@
+
+;; Function printf (printf, funcdef_no=5, decl_uid=1743, cgraph_uid=6, symbol_order=5)
+
+
+
+modref analyzing 'printf/5' (ipa=0)
+Analyzing flags of ssa name: __fmt_2(D)
+  Analyzing stmt: _4 = __printf_chk (2, __fmt_2(D), __builtin_va_arg_pack ());
+    Analyzing flags of ssa name: _4
+      Analyzing stmt: return _4;
+      current flags of _4 no_direct_clobber no_indirect_clobber no_direct_escape no_indirect_escape not_returned_indirectly no_direct_read no_indirect_read
+    flags of ssa name _4 no_direct_clobber no_indirect_clobber no_direct_escape no_indirect_escape not_returned_indirectly no_direct_read no_indirect_read
+  current flags of __fmt_2(D)
+flags of ssa name __fmt_2(D)
+Always executed bbbs (assuming return or EH): 2
+ - Analyzing call:_4 = __printf_chk (2, __fmt_2(D), __builtin_va_arg_pack ());
+ - Function availability <= AVAIL_INTERPOSABLE.
+      Builtin with no fnspec: __printf_chk
+ - modref done with result: tracked.
+__attribute__((artificial, gnu_inline, always_inline))
+__attribute__((nonnull (1), format (printf, 1, 2)))
+int printf (const char * restrict __fmt)
+{
+  int _4;
+
+  <bb 2> [local count: 1073741824]:
+  _4 = __printf_chk (2, __fmt_2(D), __builtin_va_arg_pack ());
+  return _4;
+
+}
+
+
+
+;; Function print_message (print_message, funcdef_no=24, decl_uid=3954, cgraph_uid=25, symbol_order=24)
+
+
+
+modref analyzing 'print_message/24' (ipa=0)
+Always executed bbbs (assuming return or EH): 2
+ - Analyzing call:__printf_chk (2, "fundamentals of compiling\n");
+ - Function availability <= AVAIL_INTERPOSABLE.
+      Builtin with no fnspec: __printf_chk
+ - modref done with result: tracked.
+  loads:
+      Base 0: alias set 0
+        Ref 0: alias set 0
+          access: Base in global memory
+  stores:
+      Base 0: alias set 0
+        Ref 0: alias set 0
+          access: Base in global memory
+  Side effects
+  Nondeterministic
+  Global memory read
+  Global memory written
+void print_message ()
+{
+  <bb 2> [local count: 1073741824]:
+  __printf_chk (2, "fundamentals of compiling\n");
+  return;
+
+}
+
+
+
+;; Function add (add, funcdef_no=25, decl_uid=3957, cgraph_uid=26, symbol_order=25)
+
+
+
+modref analyzing 'add/25' (ipa=0) (const)
+Analyzing flags of ssa name: a_1(D)
+  Analyzing stmt: _3 = a_1(D) + b_2(D);
+    Analyzing flags of ssa name: _3
+      Analyzing stmt: return _3;
+      current flags of _3 no_direct_clobber no_indirect_clobber no_direct_escape no_indirect_escape not_returned_indirectly no_direct_read no_indirect_read
+    flags of ssa name _3 no_direct_clobber no_indirect_clobber no_direct_escape no_indirect_escape not_returned_indirectly no_direct_read no_indirect_read
+  current flags of a_1(D) no_direct_clobber no_indirect_clobber no_direct_escape no_indirect_escape not_returned_indirectly no_direct_read no_indirect_read
+flags of ssa name a_1(D) no_direct_clobber no_indirect_clobber no_direct_escape no_indirect_escape not_returned_indirectly no_direct_read no_indirect_read
+Analyzing flags of ssa name: b_2(D)
+  Analyzing stmt: _3 = a_1(D) + b_2(D);
+  current flags of b_2(D) no_direct_clobber no_indirect_clobber no_direct_escape no_indirect_escape not_returned_indirectly no_direct_read no_indirect_read
+flags of ssa name b_2(D) no_direct_clobber no_indirect_clobber no_direct_escape no_indirect_escape not_returned_indirectly no_direct_read no_indirect_read
+Always executed bbbs (assuming return or EH): 2
+ - modref done with result: tracked.
+int add (int a, int b)
+{
+  int _3;
+
+  <bb 2> [local count: 1073741824]:
+  _3 = a_1(D) + b_2(D);
+  return _3;
+
+}
+
+
+
+;; Function main (main, funcdef_no=26, decl_uid=3964, cgraph_uid=27, symbol_order=26) (executed once)
+
+
+
+modref analyzing 'main/26' (ipa=0)
+Always executed bbbs (assuming return or EH): 2, 4, 5
+ - Analyzing call:scanf ("%d", &n);
+ - Function availability <= AVAIL_INTERPOSABLE.
+      Builtin with no fnspec: scanf
+ - modref done with result: tracked.
+int main ()
+{
+  float arr$2;
+  float arr$1;
+  float arr$0;
+  int sum1;
+  int i;
+  int n;
+  float arr[3];
+  double _2;
+  double _3;
+  double _4;
+  double _5;
+  float _6;
+  int n.0_7;
+  double _13;
+
+  <bb 2> [local count: 118111600]:
+  scanf ("%d", &n);
+  goto <bb 4>; [100.00%]
+
+  <bb 3> [local count: 955630225]:
+  _2 = (double) arr$2_21;
+  _3 = (double) i_14;
+  _4 = _3 * 1.000000000000000055511151231257827021181583404541015625e-1;
+  _5 = _2 + _4;
+  _6 = (float) _5;
+  i_33 = i_14 + 1;
+
+  <bb 4> [local count: 1073741824]:
+  # i_14 = PHI <0(2), i_33(3)>
+  # arr$2_21 = PHI <0.0(2), _6(3)>
+  n.0_7 = n;
+  if (n.0_7 >= i_14)
+    goto <bb 3>; [89.00%]
+  else
+    goto <bb 5>; [11.00%]
+
+  <bb 5> [local count: 118111600]:
+  # arr$2_25 = PHI <arr$2_21(4)>
+  sum1_23 = add (5, 7);
+  print_message ();
+  __printf_chk (2, "integer: %d\n", sum1_23);
+  __printf_chk (2, "floating: %f\n", 3.140000000000000124344978758017532527446746826171875e+0);
+  __printf_chk (2, "constant: %d\n", 42);
+  _13 = (double) arr$2_25;
+  __printf_chk (2, "sum2: %f\n", _13);
+  arr ={v} {CLOBBER(eol)};
+  n ={v} {CLOBBER(eol)};
+  return 0;
+
+}
+
+

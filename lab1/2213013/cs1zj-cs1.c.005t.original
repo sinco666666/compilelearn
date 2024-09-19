@@ -1,0 +1,109 @@
+
+;; Function __bswap_16 (null)
+;; enabled by -tree-original
+
+
+{
+  return (__uint16_t) __builtin_bswap16 ((int) __bsx);
+}
+
+
+;; Function __bswap_32 (null)
+;; enabled by -tree-original
+
+
+{
+  return (__uint32_t) __builtin_bswap32 (__bsx);
+}
+
+
+;; Function __bswap_64 (null)
+;; enabled by -tree-original
+
+
+{
+  return (__uint64_t) __builtin_bswap64 (__bsx);
+}
+
+
+;; Function __uint16_identity (null)
+;; enabled by -tree-original
+
+
+{
+  return __x;
+}
+
+
+;; Function __uint32_identity (null)
+;; enabled by -tree-original
+
+
+{
+  return __x;
+}
+
+
+;; Function __uint64_identity (null)
+;; enabled by -tree-original
+
+
+{
+  return __x;
+}
+
+
+;; Function print_message (null)
+;; enabled by -tree-original
+
+
+{
+  printf ((const char * restrict) "fundamentals of compiling\n");
+}
+
+
+;; Function add (null)
+;; enabled by -tree-original
+
+
+{
+  return a + b;
+}
+
+
+;; Function main (null)
+;; enabled by -tree-original
+
+
+{
+  float arr[3];
+  int n;
+  int i = 0;
+  int sum1 = add ((int) arr[0], (int) arr[1]);
+
+    float arr[3];
+  arr[0] = 5.0e+0;
+  arr[1] = 7.0e+0;
+  arr[2] = 0.0;
+    int n;
+  scanf ((const char * restrict) "%d", &n);
+    int i = 0;
+  goto <D.2882>;
+  <D.2883>:;
+  arr[2] = (float) ((double) arr[2] + (double) i * 1.000000000000000055511151231257827021181583404541015625e-1);
+  i++ ;
+  <D.2882>:;
+  if (i <= n) goto <D.2883>; else goto <D.2881>;
+  <D.2881>:;
+    int sum1 = add ((int) arr[0], (int) arr[1]);
+  print_message ();
+  printf ((const char * restrict) "integer: %d\n", sum1);
+  printf ((const char * restrict) "floating: %f\n", 3.140000000000000124344978758017532527446746826171875e+0);
+  printf ((const char * restrict) "constant: %d\n", 42);
+  printf ((const char * restrict) "sum2: %f\n", (double) arr[2]);
+  printf ((const char * restrict) "global variable: %d\n", qj);
+  printf ((const char * restrict) "constant integer: %d\n", (int) CONST);
+  return 0;
+}
+return 0;
+

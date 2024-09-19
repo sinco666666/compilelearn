@@ -4,6 +4,8 @@
 #define PI 3.14
 #define num 42
 
+int global = 1;
+
 void print_message();
 
 int add(int a, int b);
@@ -38,6 +40,7 @@ int main() {
     printf("floating: %f\n", PI);
     printf("constant: %d\n", num);
     printf("sum2: %f\n", arr[2]);
+    printf("global: %d\n",global);
 
     return 0;
 }

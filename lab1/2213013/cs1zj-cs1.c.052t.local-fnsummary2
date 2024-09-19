@@ -1,0 +1,174 @@
+
+;; Function print_message (print_message, funcdef_no=6, decl_uid=2865, cgraph_uid=7, symbol_order=8)
+
+
+Analyzing function body size: print_message/8
+
+IPA function summary for print_message/8
+  global time:     13.000000
+  self size:       5
+  global size:     5
+  min size:       0
+  self stack:      0
+  global stack:    0
+    size:1.000000, time:2.000000
+    size:2.000000, time:0.000000,  executed if:(not inlined)
+  calls:
+    __builtin_puts/11 function body not available
+      freq:1.00 loop depth: 0 size: 2 time: 11
+
+void print_message ()
+{
+  <bb 2> :
+  __builtin_puts (&"fundamentals of compiling"[0]);
+  return;
+
+}
+
+
+
+;; Function add (add, funcdef_no=7, decl_uid=2868, cgraph_uid=8, symbol_order=9)
+
+
+Analyzing function body size: add/9
+
+IPA function summary for add/9
+  global time:     3.000000
+  self size:       4
+  global size:     4
+  min size:       0
+  self stack:      0
+  global stack:    0
+    size:2.000000, time:3.000000
+    size:2.000000, time:0.000000,  executed if:(not inlined)
+  calls:
+
+int add (int a, int b)
+{
+  int D.2885;
+  int _3;
+
+  <bb 2> :
+  _3 = a_1(D) + b_2(D);
+
+  <bb 3> :
+<L0>:
+  return _3;
+
+}
+
+
+
+;; Function main (main, funcdef_no=8, decl_uid=2875, cgraph_uid=9, symbol_order=10)
+
+
+Analyzing function body size: main/10
+   fp_expression set
+
+IPA function summary for main/10 fp_expression
+  global time:     127.000000
+  self size:       47
+  global size:     47
+  min size:       0
+  self stack:      0
+  global stack:    0
+    size:19.000000, time:20.000000
+    size:2.000000, time:0.000000,  executed if:(not inlined)
+  calls:
+    printf/13 function body not available
+      freq:1.00 loop depth: 0 size: 3 time: 12
+    printf/13 function body not available
+      freq:1.00 loop depth: 0 size: 3 time: 12
+    printf/13 function body not available
+      freq:1.00 loop depth: 0 size: 3 time: 12
+    printf/13 function body not available
+      freq:1.00 loop depth: 0 size: 3 time: 12
+    printf/13 function body not available
+      freq:1.00 loop depth: 0 size: 3 time: 12
+    printf/13 function body not available
+      freq:1.00 loop depth: 0 size: 3 time: 12
+    print_message/8 function not considered for inlining
+      freq:1.00 loop depth: 0 size: 1 time: 10 callee size: 2 stack: 0
+    add/9 function not considered for inlining
+      freq:1.00 loop depth: 0 size: 4 time: 13 callee size: 2 stack: 0
+    scanf/12 function body not available
+      freq:1.00 loop depth: 0 size: 3 time: 12
+
+int main ()
+{
+  int sum1;
+  int i;
+  int n;
+  float arr[3];
+  int D.2887;
+  float _1;
+  double _2;
+  double _3;
+  double _4;
+  double _5;
+  float _6;
+  int n.0_7;
+  float _8;
+  int _9;
+  float _10;
+  int _11;
+  float _12;
+  double _13;
+  int qj.1_14;
+  int CONST.2_15;
+  int _33;
+
+  <bb 2> :
+  arr[0] = 5.0e+0;
+  arr[1] = 7.0e+0;
+  arr[2] = 0.0;
+  scanf ("%d", &n);
+  i_23 = 0;
+  goto <bb 4>; [INV]
+
+  <bb 3> :
+  _1 = arr[2];
+  _2 = (double) _1;
+  _3 = (double) i_16;
+  _4 = _3 * 1.000000000000000055511151231257827021181583404541015625e-1;
+  _5 = _2 + _4;
+  _6 = (float) _5;
+  arr[2] = _6;
+  i_37 = i_16 + 1;
+
+  <bb 4> :
+  # i_16 = PHI <i_23(2), i_37(3)>
+  n.0_7 = n;
+  if (i_16 <= n.0_7)
+    goto <bb 3>; [INV]
+  else
+    goto <bb 5>; [INV]
+
+  <bb 5> :
+  _8 = arr[1];
+  _9 = (int) _8;
+  _10 = arr[0];
+  _11 = (int) _10;
+  sum1_25 = add (_11, _9);
+  print_message ();
+  printf ("integer: %d\n", sum1_25);
+  printf ("floating: %f\n", 3.140000000000000124344978758017532527446746826171875e+0);
+  printf ("constant: %d\n", 42);
+  _12 = arr[2];
+  _13 = (double) _12;
+  printf ("sum2: %f\n", _13);
+  qj.1_14 = qj;
+  printf ("global variable: %d\n", qj.1_14);
+  CONST.2_15 = 500;
+  printf ("constant integer: %d\n", CONST.2_15);
+  _33 = 0;
+  arr ={v} {CLOBBER};
+  n ={v} {CLOBBER};
+
+  <bb 6> :
+<L4>:
+  return _33;
+
+}
+
+

@@ -1,0 +1,574 @@
+
+;; Function print_message (print_message, funcdef_no=6, decl_uid=2865, cgraph_uid=7, symbol_order=8)
+
+
+
+print_message
+
+Dataflow summary:
+;;  fully invalidated by EH 	 0 [ax] 1 [dx] 2 [cx] 4 [si] 5 [di] 8 [st] 9 [st(1)] 10 [st(2)] 11 [st(3)] 12 [st(4)] 13 [st(5)] 14 [st(6)] 15 [st(7)] 17 [flags] 18 [fpsr] 20 [xmm0] 21 [xmm1] 22 [xmm2] 23 [xmm3] 24 [xmm4] 25 [xmm5] 26 [xmm6] 27 [xmm7] 28 [mm0] 29 [mm1] 30 [mm2] 31 [mm3] 32 [mm4] 33 [mm5] 34 [mm6] 35 [mm7] 36 [r8] 37 [r9] 38 [r10] 39 [r11] 44 [xmm8] 45 [xmm9] 46 [xmm10] 47 [xmm11] 48 [xmm12] 49 [xmm13] 50 [xmm14] 51 [xmm15] 52 [xmm16] 53 [xmm17] 54 [xmm18] 55 [xmm19] 56 [xmm20] 57 [xmm21] 58 [xmm22] 59 [xmm23] 60 [xmm24] 61 [xmm25] 62 [xmm26] 63 [xmm27] 64 [xmm28] 65 [xmm29] 66 [xmm30] 67 [xmm31] 68 [k0] 69 [k1] 70 [k2] 71 [k3] 72 [k4] 73 [k5] 74 [k6] 75 [k7]
+;;  hardware regs used 	 7 [sp]
+;;  regular block artificial uses 	 6 [bp] 7 [sp]
+;;  eh block artificial uses 	 6 [bp] 7 [sp] 16 [argp] 19 [frame]
+;;  entry block defs 	 0 [ax] 1 [dx] 2 [cx] 4 [si] 5 [di] 6 [bp] 7 [sp] 19 [frame] 20 [xmm0] 21 [xmm1] 22 [xmm2] 23 [xmm3] 24 [xmm4] 25 [xmm5] 26 [xmm6] 27 [xmm7] 36 [r8] 37 [r9]
+;;  exit block uses 	 6 [bp] 7 [sp] 19 [frame]
+;;  regs ever live 	 0 [ax] 5 [di] 6 [bp] 7 [sp]
+;;  ref usage 	r0={3d,1u} r1={2d} r2={2d} r4={2d} r5={3d,1u} r6={3d,3u} r7={3d,6u} r8={1d} r9={1d} r10={1d} r11={1d} r12={1d} r13={1d} r14={1d} r15={1d} r17={1d} r18={1d} r19={1d,1u} r20={2d} r21={2d} r22={2d} r23={2d} r24={2d} r25={2d} r26={2d} r27={2d} r28={1d} r29={1d} r30={1d} r31={1d} r32={1d} r33={1d} r34={1d} r35={1d} r36={2d} r37={2d} r38={1d} r39={1d} r44={1d} r45={1d} r46={1d} r47={1d} r48={1d} r49={1d} r50={1d} r51={1d} r52={1d} r53={1d} r54={1d} r55={1d} r56={1d} r57={1d} r58={1d} r59={1d} r60={1d} r61={1d} r62={1d} r63={1d} r64={1d} r65={1d} r66={1d} r67={1d} r68={1d} r69={1d} r70={1d} r71={1d} r72={1d} r73={1d} r74={1d} r75={1d} 
+;;    total ref usage 103{91d,12u,0e} in 8{7 regular + 1 call} insns.
+(note 1 0 3 NOTE_INSN_DELETED)
+(note 3 1 13 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn/f 13 3 14 2 (set (mem:DI (pre_dec:DI (reg/f:DI 7 sp)) [0  S8 A8])
+        (reg/f:DI 6 bp)) "cs1.c":17:22 -1
+     (nil))
+(insn/f 14 13 15 2 (set (reg/f:DI 6 bp)
+        (reg/f:DI 7 sp)) "cs1.c":17:22 -1
+     (nil))
+(note 15 14 2 2 NOTE_INSN_PROLOGUE_END)
+(note 2 15 5 2 NOTE_INSN_FUNCTION_BEG)
+(insn 5 2 6 2 (set (reg:DI 0 ax [82])
+        (symbol_ref/f:DI ("*.LC0") [flags 0x2]  <var_decl 0x7f26273f0a20 *.LC0>)) "cs1.c":18:5 74 {*movdi_internal}
+     (nil))
+(insn 6 5 7 2 (set (reg:DI 5 di)
+        (reg:DI 0 ax [82])) "cs1.c":18:5 74 {*movdi_internal}
+     (expr_list:REG_EQUAL (symbol_ref/f:DI ("*.LC0") [flags 0x2]  <var_decl 0x7f26273f0a20 *.LC0>)
+        (nil)))
+(call_insn 7 6 11 2 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("puts") [flags 0x41]  <function_decl 0x7f26272be800 __builtin_puts>) [0 __builtin_puts S1 A8])
+            (const_int 0 [0]))) "cs1.c":18:5 824 {*call_value}
+     (nil)
+    (expr_list:DI (use (reg:DI 5 di))
+        (nil)))
+(insn 11 7 16 2 (const_int 0 [0]) "cs1.c":19:1 843 {nop}
+     (nil))
+(note 16 11 17 2 NOTE_INSN_EPILOGUE_BEG)
+(insn/f 17 16 18 2 (set (reg/f:DI 6 bp)
+        (mem:DI (post_inc:DI (reg/f:DI 7 sp)) [0  S8 A8])) "cs1.c":19:1 -1
+     (expr_list:REG_CFA_DEF_CFA (plus:DI (reg/f:DI 7 sp)
+            (const_int 8 [0x8]))
+        (nil)))
+(jump_insn 18 17 19 2 (simple_return) "cs1.c":19:1 -1
+     (nil)
+ -> simple_return)
+(barrier 19 18 12)
+(note 12 19 0 NOTE_INSN_DELETED)
+
+;; Function add (add, funcdef_no=7, decl_uid=2868, cgraph_uid=8, symbol_order=9)
+
+
+
+add
+
+Dataflow summary:
+;;  fully invalidated by EH 	 0 [ax] 1 [dx] 2 [cx] 4 [si] 5 [di] 8 [st] 9 [st(1)] 10 [st(2)] 11 [st(3)] 12 [st(4)] 13 [st(5)] 14 [st(6)] 15 [st(7)] 17 [flags] 18 [fpsr] 20 [xmm0] 21 [xmm1] 22 [xmm2] 23 [xmm3] 24 [xmm4] 25 [xmm5] 26 [xmm6] 27 [xmm7] 28 [mm0] 29 [mm1] 30 [mm2] 31 [mm3] 32 [mm4] 33 [mm5] 34 [mm6] 35 [mm7] 36 [r8] 37 [r9] 38 [r10] 39 [r11] 44 [xmm8] 45 [xmm9] 46 [xmm10] 47 [xmm11] 48 [xmm12] 49 [xmm13] 50 [xmm14] 51 [xmm15] 52 [xmm16] 53 [xmm17] 54 [xmm18] 55 [xmm19] 56 [xmm20] 57 [xmm21] 58 [xmm22] 59 [xmm23] 60 [xmm24] 61 [xmm25] 62 [xmm26] 63 [xmm27] 64 [xmm28] 65 [xmm29] 66 [xmm30] 67 [xmm31] 68 [k0] 69 [k1] 70 [k2] 71 [k3] 72 [k4] 73 [k5] 74 [k6] 75 [k7]
+;;  hardware regs used 	 7 [sp]
+;;  regular block artificial uses 	 6 [bp] 7 [sp]
+;;  eh block artificial uses 	 6 [bp] 7 [sp] 16 [argp] 19 [frame]
+;;  entry block defs 	 0 [ax] 1 [dx] 2 [cx] 4 [si] 5 [di] 6 [bp] 7 [sp] 19 [frame] 20 [xmm0] 21 [xmm1] 22 [xmm2] 23 [xmm3] 24 [xmm4] 25 [xmm5] 26 [xmm6] 27 [xmm7] 36 [r8] 37 [r9]
+;;  exit block uses 	 0 [ax] 6 [bp] 7 [sp] 19 [frame]
+;;  regs ever live 	 0 [ax] 1 [dx] 4 [si] 5 [di] 6 [bp] 17 [flags]
+;;  ref usage 	r0={3d,3u} r1={2d,1u} r2={1d} r4={1d,1u} r5={1d,1u} r6={3d,7u} r7={3d,5u} r17={1d} r19={1d,1u,2e} r20={1d} r21={1d} r22={1d} r23={1d} r24={1d} r25={1d} r26={1d} r27={1d} r36={1d} r37={1d} 
+;;    total ref usage 47{26d,19u,2e} in 12{12 regular + 0 call} insns.
+(note 1 0 5 NOTE_INSN_DELETED)
+(note 5 1 20 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn/f 20 5 21 2 (set (mem:DI (pre_dec:DI (reg/f:DI 7 sp)) [0  S8 A8])
+        (reg/f:DI 6 bp)) "cs1.c":21:23 -1
+     (nil))
+(insn/f 21 20 22 2 (set (reg/f:DI 6 bp)
+        (reg/f:DI 7 sp)) "cs1.c":21:23 -1
+     (nil))
+(insn 22 21 23 2 (set (mem/v:BLK (scratch:DI) [0  A8])
+        (unspec:BLK [
+                (mem/v:BLK (scratch:DI) [0  A8])
+            ] UNSPEC_MEMORY_BLOCKAGE)) "cs1.c":21:23 -1
+     (nil))
+(note 23 22 2 2 NOTE_INSN_PROLOGUE_END)
+(insn 2 23 3 2 (set (mem/c:SI (plus:DI (reg/f:DI 6 bp)
+                (const_int -4 [0xfffffffffffffffc])) [1 a+0 S4 A32])
+        (reg:SI 5 di [ a ])) "cs1.c":21:23 75 {*movsi_internal}
+     (nil))
+(insn 3 2 4 2 (set (mem/c:SI (plus:DI (reg/f:DI 6 bp)
+                (const_int -8 [0xfffffffffffffff8])) [1 b+0 S4 A32])
+        (reg:SI 4 si [ b ])) "cs1.c":21:23 75 {*movsi_internal}
+     (nil))
+(note 4 3 7 2 NOTE_INSN_FUNCTION_BEG)
+(insn 7 4 8 2 (set (reg:SI 1 dx [84])
+        (mem/c:SI (plus:DI (reg/f:DI 6 bp)
+                (const_int -4 [0xfffffffffffffffc])) [1 a+0 S4 A32])) "cs1.c":22:14 75 {*movsi_internal}
+     (nil))
+(insn 8 7 9 2 (set (reg:SI 0 ax [85])
+        (mem/c:SI (plus:DI (reg/f:DI 6 bp)
+                (const_int -8 [0xfffffffffffffff8])) [1 b+0 S4 A32])) "cs1.c":22:14 75 {*movsi_internal}
+     (nil))
+(insn 9 8 17 2 (parallel [
+            (set (reg:SI 0 ax [orig:82 _3 ] [82])
+                (plus:SI (reg:SI 0 ax [85])
+                    (reg:SI 1 dx [84])))
+            (clobber (reg:CC 17 flags))
+        ]) "cs1.c":22:14 209 {*addsi_1}
+     (expr_list:REG_EQUAL (plus:SI (mem/c:SI (plus:DI (reg/f:DI 19 frame)
+                    (const_int -4 [0xfffffffffffffffc])) [1 a+0 S4 A32])
+            (mem/c:SI (plus:DI (reg/f:DI 19 frame)
+                    (const_int -8 [0xfffffffffffffff8])) [1 b+0 S4 A32]))
+        (nil)))
+(insn 17 9 24 2 (use (reg/i:SI 0 ax)) "cs1.c":23:1 -1
+     (nil))
+(note 24 17 25 2 NOTE_INSN_EPILOGUE_BEG)
+(insn 25 24 26 2 (set (mem/v:BLK (scratch:DI) [0  A8])
+        (unspec:BLK [
+                (mem/v:BLK (scratch:DI) [0  A8])
+            ] UNSPEC_MEMORY_BLOCKAGE)) "cs1.c":23:1 -1
+     (nil))
+(insn/f 26 25 27 2 (set (reg/f:DI 6 bp)
+        (mem:DI (post_inc:DI (reg/f:DI 7 sp)) [0  S8 A8])) "cs1.c":23:1 -1
+     (expr_list:REG_CFA_DEF_CFA (plus:DI (reg/f:DI 7 sp)
+            (const_int 8 [0x8]))
+        (nil)))
+(jump_insn 27 26 28 2 (simple_return) "cs1.c":23:1 -1
+     (nil)
+ -> simple_return)
+(barrier 28 27 19)
+(note 19 28 0 NOTE_INSN_DELETED)
+
+;; Function main (main, funcdef_no=8, decl_uid=2875, cgraph_uid=9, symbol_order=10)
+
+Splitting with gen_split_53 (i386.md:4376)
+scanning new insn with uid = 114.
+scanning new insn with uid = 115.
+deleting insn with uid = 67.
+deleting insn with uid = 67.
+Splitting with gen_split_53 (i386.md:4376)
+scanning new insn with uid = 116.
+scanning new insn with uid = 117.
+deleting insn with uid = 23.
+deleting insn with uid = 23.
+Splitting with gen_split_71 (i386.md:5051)
+scanning new insn with uid = 118.
+scanning new insn with uid = 119.
+deleting insn with uid = 24.
+deleting insn with uid = 24.
+Splitting with gen_split_33 (i386.md:3662)
+scanning new insn with uid = 120.
+deleting insn with uid = 10.
+deleting insn with uid = 10.
+Splitting with gen_split_86 (i386.md:5551)
+scanning new insn with uid = 121.
+deleting insn with uid = 12.
+deleting insn with uid = 12.
+
+
+main
+
+Dataflow summary:
+;;  fully invalidated by EH 	 0 [ax] 1 [dx] 2 [cx] 4 [si] 5 [di] 8 [st] 9 [st(1)] 10 [st(2)] 11 [st(3)] 12 [st(4)] 13 [st(5)] 14 [st(6)] 15 [st(7)] 17 [flags] 18 [fpsr] 20 [xmm0] 21 [xmm1] 22 [xmm2] 23 [xmm3] 24 [xmm4] 25 [xmm5] 26 [xmm6] 27 [xmm7] 28 [mm0] 29 [mm1] 30 [mm2] 31 [mm3] 32 [mm4] 33 [mm5] 34 [mm6] 35 [mm7] 36 [r8] 37 [r9] 38 [r10] 39 [r11] 44 [xmm8] 45 [xmm9] 46 [xmm10] 47 [xmm11] 48 [xmm12] 49 [xmm13] 50 [xmm14] 51 [xmm15] 52 [xmm16] 53 [xmm17] 54 [xmm18] 55 [xmm19] 56 [xmm20] 57 [xmm21] 58 [xmm22] 59 [xmm23] 60 [xmm24] 61 [xmm25] 62 [xmm26] 63 [xmm27] 64 [xmm28] 65 [xmm29] 66 [xmm30] 67 [xmm31] 68 [k0] 69 [k1] 70 [k2] 71 [k3] 72 [k4] 73 [k5] 74 [k6] 75 [k7]
+;;  hardware regs used 	 7 [sp]
+;;  regular block artificial uses 	 6 [bp] 7 [sp]
+;;  eh block artificial uses 	 6 [bp] 7 [sp] 16 [argp] 19 [frame]
+;;  entry block defs 	 0 [ax] 1 [dx] 2 [cx] 4 [si] 5 [di] 6 [bp] 7 [sp] 19 [frame] 20 [xmm0] 21 [xmm1] 22 [xmm2] 23 [xmm3] 24 [xmm4] 25 [xmm5] 26 [xmm6] 27 [xmm7] 36 [r8] 37 [r9]
+;;  exit block uses 	 0 [ax] 6 [bp] 7 [sp] 19 [frame]
+;;  regs ever live 	 0 [ax] 1 [dx] 4 [si] 5 [di] 6 [bp] 7 [sp] 17 [flags] 20 [xmm0] 21 [xmm1] 22 [xmm2] 23 [xmm3]
+;;  ref usage 	r0={36d,26u} r1={13d,1u} r2={11d} r4={17d,6u} r5={19d,8u} r6={3d,29u} r7={4d,22u} r8={10d} r9={10d} r10={10d} r11={10d} r12={10d} r13={10d} r14={10d} r15={10d} r17={15d,2u} r18={10d} r19={1d,1u} r20={24d,13u} r21={13d,2u} r22={13d,2u} r23={13d,2u} r24={11d} r25={11d} r26={11d} r27={11d} r28={10d} r29={10d} r30={10d} r31={10d} r32={10d} r33={10d} r34={10d} r35={10d} r36={11d} r37={11d} r38={10d} r39={10d} r44={10d} r45={10d} r46={10d} r47={10d} r48={10d} r49={10d} r50={10d} r51={10d} r52={10d} r53={10d} r54={10d} r55={10d} r56={10d} r57={10d} r58={10d} r59={10d} r60={10d} r61={10d} r62={10d} r63={10d} r64={10d} r65={10d} r66={10d} r67={10d} r68={10d} r69={10d} r70={10d} r71={10d} r72={10d} r73={10d} r74={10d} r75={10d} 
+;;    total ref usage 872{758d,114u,0e} in 87{77 regular + 10 call} insns.
+(note 1 0 4 NOTE_INSN_DELETED)
+(note 4 1 106 2 [bb 2] NOTE_INSN_BASIC_BLOCK)
+(insn/f 106 4 107 2 (set (mem:DI (pre_dec:DI (reg/f:DI 7 sp)) [0  S8 A8])
+        (reg/f:DI 6 bp)) "cs1.c":25:12 -1
+     (nil))
+(insn/f 107 106 108 2 (set (reg/f:DI 6 bp)
+        (reg/f:DI 7 sp)) "cs1.c":25:12 -1
+     (nil))
+(insn/f 108 107 109 2 (parallel [
+            (set (reg/f:DI 7 sp)
+                (plus:DI (reg/f:DI 7 sp)
+                    (const_int -32 [0xffffffffffffffe0])))
+            (clobber (reg:CC 17 flags))
+            (clobber (mem:BLK (scratch) [0  A8]))
+        ]) "cs1.c":25:12 -1
+     (nil))
+(note 109 108 2 2 NOTE_INSN_PROLOGUE_END)
+(note 2 109 3 2 NOTE_INSN_FUNCTION_BEG)
+(insn 3 2 6 2 (parallel [
+            (set (mem/v/f/c:DI (plus:DI (reg/f:DI 6 bp)
+                        (const_int -8 [0xfffffffffffffff8])) [2 D.2894+0 S8 A64])
+                (unspec:DI [
+                        (mem/v/f:DI (const_int 40 [0x28]) [0 MEM[(<address-space-1> long unsigned int *)40B]+0 S8 A64 AS1])
+                    ] UNSPEC_SP_SET))
+            (set (reg:DI 0 ax [115])
+                (const_int 0 [0]))
+            (clobber (reg:CC 17 flags))
+        ]) "cs1.c":25:12 1159 {stack_protect_set_1_di}
+     (nil))
+(insn 6 3 7 2 (set (reg:SF 20 xmm0 [99])
+        (mem/u/c:SF (symbol_ref/u:DI ("*.LC1") [flags 0x2]) [0  S4 A32])) "cs1.c":27:12 136 {*movsf_internal}
+     (nil))
+(insn 7 6 8 2 (set (mem/c:SF (plus:DI (reg/f:DI 6 bp)
+                (const_int -20 [0xffffffffffffffec])) [3 arr[0]+0 S4 A32])
+        (reg:SF 20 xmm0 [99])) "cs1.c":27:12 136 {*movsf_internal}
+     (nil))
+(insn 8 7 9 2 (set (reg:SF 20 xmm0 [100])
+        (mem/u/c:SF (symbol_ref/u:DI ("*.LC2") [flags 0x2]) [0  S4 A32])) "cs1.c":28:12 136 {*movsf_internal}
+     (nil))
+(insn 9 8 120 2 (set (mem/c:SF (plus:DI (reg/f:DI 6 bp)
+                (const_int -16 [0xfffffffffffffff0])) [3 arr[1]+0 S4 A32])
+        (reg:SF 20 xmm0 [100])) "cs1.c":28:12 136 {*movsf_internal}
+     (nil))
+(insn 120 9 11 2 (set (reg:SF 20 xmm0 [101])
+        (const_double:SF 0.0 [0x0.0p+0])) "cs1.c":29:12 136 {*movsf_internal}
+     (nil))
+(insn 11 120 121 2 (set (mem/c:SF (plus:DI (reg/f:DI 6 bp)
+                (const_int -12 [0xfffffffffffffff4])) [3 arr[2]+0 S4 A32])
+        (reg:SF 20 xmm0 [101])) "cs1.c":29:12 136 {*movsf_internal}
+     (nil))
+(insn 121 11 13 2 (set (reg:DI 0 ax [102])
+        (plus:DI (reg/f:DI 6 bp)
+            (const_int -32 [0xffffffffffffffe0]))) "cs1.c":32:5 206 {*leadi}
+     (nil))
+(insn 13 121 14 2 (set (reg:DI 4 si)
+        (reg:DI 0 ax [102])) "cs1.c":32:5 74 {*movdi_internal}
+     (nil))
+(insn 14 13 15 2 (set (reg:DI 0 ax [103])
+        (symbol_ref/f:DI ("*.LC4") [flags 0x2]  <var_decl 0x7f26270051b0 *.LC4>)) "cs1.c":32:5 74 {*movdi_internal}
+     (nil))
+(insn 15 14 16 2 (set (reg:DI 5 di)
+        (reg:DI 0 ax [103])) "cs1.c":32:5 74 {*movdi_internal}
+     (expr_list:REG_EQUAL (symbol_ref/f:DI ("*.LC4") [flags 0x2]  <var_decl 0x7f26270051b0 *.LC4>)
+        (nil)))
+(insn 16 15 17 2 (set (reg:QI 0 ax)
+        (const_int 0 [0])) "cs1.c":32:5 77 {*movqi_internal}
+     (nil))
+(call_insn 17 16 18 2 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("*__isoc99_scanf") [flags 0x41]  <function_decl 0x7f26272bed00 scanf>) [0 __builtin_scanf S1 A8])
+            (const_int 0 [0]))) "cs1.c":32:5 824 {*call_value}
+     (nil)
+    (expr_list (use (reg:QI 0 ax))
+        (expr_list:DI (use (reg:DI 5 di))
+            (expr_list:DI (use (reg:DI 4 si))
+                (nil)))))
+(insn 18 17 102 2 (set (mem/c:SI (plus:DI (reg/f:DI 6 bp)
+                (const_int -28 [0xffffffffffffffe4])) [1 i+0 S4 A32])
+        (const_int 0 [0])) "cs1.c":34:9 75 {*movsi_internal}
+     (nil))
+(jump_insn 102 18 103 2 (set (pc)
+        (label_ref 31)) "cs1.c":35:11 807 {jump}
+     (nil)
+ -> 31)
+(barrier 103 102 34)
+(code_label 34 103 21 3 6 (nil) [1 uses])
+(note 21 34 22 3 [bb 3] NOTE_INSN_BASIC_BLOCK)
+(insn 22 21 116 3 (set (reg:SF 20 xmm0 [orig:82 _1 ] [82])
+        (mem/c:SF (plus:DI (reg/f:DI 6 bp)
+                (const_int -12 [0xfffffffffffffff4])) [3 arr[2]+0 S4 A32])) "cs1.c":36:16 136 {*movsf_internal}
+     (nil))
+(insn 116 22 117 3 (set (reg:V2DF 21 xmm1 [orig:83 _2 ] [83])
+        (const_vector:V2DF [
+                (const_double:DF 0.0 [0x0.0p+0]) repeated x2
+            ])) "cs1.c":36:16 1448 {movv2df_internal}
+     (nil))
+(insn 117 116 118 3 (set (reg:V2DF 21 xmm1 [orig:83 _2 ] [83])
+        (vec_merge:V2DF (vec_duplicate:V2DF (float_extend:DF (reg:SF 20 xmm0 [orig:82 _1 ] [82])))
+            (reg:V2DF 21 xmm1 [orig:83 _2 ] [83])
+            (const_int 1 [0x1]))) "cs1.c":36:16 2788 {*sse2_vd_cvtss2sd}
+     (nil))
+(insn 118 117 119 3 (set (reg:V2DF 22 xmm2 [orig:84 _3 ] [84])
+        (const_vector:V2DF [
+                (const_double:DF 0.0 [0x0.0p+0]) repeated x2
+            ])) "cs1.c":36:21 1448 {movv2df_internal}
+     (nil))
+(insn 119 118 25 3 (set (reg:V2DF 22 xmm2 [orig:84 _3 ] [84])
+        (vec_merge:V2DF (vec_duplicate:V2DF (float:DF (mem/c:SI (plus:DI (reg/f:DI 6 bp)
+                            (const_int -28 [0xffffffffffffffe4])) [1 i+0 S4 A32])))
+            (reg:V2DF 22 xmm2 [orig:84 _3 ] [84])
+            (const_int 1 [0x1]))) "cs1.c":36:21 2603 {sse2_cvtsi2sd}
+     (nil))
+(insn 25 119 26 3 (set (reg:DF 20 xmm0 [104])
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC5") [flags 0x2]) [0  S8 A64])) "cs1.c":36:21 135 {*movdf_internal}
+     (expr_list:REG_EQUAL (const_double:DF 1.00000000000000005551115123125782702118158340454101562e-1 [0x0.ccccccccccccdp-3])
+        (nil)))
+(insn 26 25 27 3 (set (reg:DF 20 xmm0 [orig:85 _4 ] [85])
+        (mult:DF (reg:DF 20 xmm0 [104])
+            (reg:DF 22 xmm2 [orig:84 _3 ] [84]))) "cs1.c":36:21 981 {*fop_df_comm}
+     (nil))
+(insn 27 26 28 3 (set (reg:DF 20 xmm0 [orig:86 _5 ] [86])
+        (plus:DF (reg:DF 20 xmm0 [orig:85 _4 ] [85])
+            (reg:DF 21 xmm1 [orig:83 _2 ] [83]))) "cs1.c":36:16 981 {*fop_df_comm}
+     (nil))
+(insn 28 27 29 3 (set (reg:SF 20 xmm0 [orig:87 _6 ] [87])
+        (float_truncate:SF (reg:DF 20 xmm0 [orig:86 _5 ] [86]))) "cs1.c":36:16 159 {truncdfsf2}
+     (nil))
+(insn 29 28 30 3 (set (mem/c:SF (plus:DI (reg/f:DI 6 bp)
+                (const_int -12 [0xfffffffffffffff4])) [3 arr[2]+0 S4 A32])
+        (reg:SF 20 xmm0 [orig:87 _6 ] [87])) "cs1.c":36:16 136 {*movsf_internal}
+     (nil))
+(insn 30 29 31 3 (parallel [
+            (set (mem/c:SI (plus:DI (reg/f:DI 6 bp)
+                        (const_int -28 [0xffffffffffffffe4])) [1 i+0 S4 A32])
+                (plus:SI (mem/c:SI (plus:DI (reg/f:DI 6 bp)
+                            (const_int -28 [0xffffffffffffffe4])) [1 i+0 S4 A32])
+                    (const_int 1 [0x1])))
+            (clobber (reg:CC 17 flags))
+        ]) "cs1.c":37:10 209 {*addsi_1}
+     (nil))
+(code_label 31 30 32 4 5 (nil) [1 uses])
+(note 32 31 33 4 [bb 4] NOTE_INSN_BASIC_BLOCK)
+(insn 33 32 35 4 (set (reg:SI 0 ax [orig:88 n.0_7 ] [88])
+        (mem/c:SI (plus:DI (reg/f:DI 6 bp)
+                (const_int -32 [0xffffffffffffffe0])) [1 n+0 S4 A64])) "cs1.c":35:14 75 {*movsi_internal}
+     (nil))
+(insn 35 33 36 4 (set (reg:CCGC 17 flags)
+        (compare:CCGC (mem/c:SI (plus:DI (reg/f:DI 6 bp)
+                    (const_int -28 [0xffffffffffffffe4])) [1 i+0 S4 A32])
+            (reg:SI 0 ax [orig:88 n.0_7 ] [88]))) "cs1.c":35:14 11 {*cmpsi_1}
+     (nil))
+(jump_insn 36 35 37 4 (set (pc)
+        (if_then_else (le (reg:CCGC 17 flags)
+                (const_int 0 [0]))
+            (label_ref 34)
+            (pc))) "cs1.c":35:14 806 {*jcc}
+     (nil)
+ -> 34)
+(note 37 36 38 5 [bb 5] NOTE_INSN_BASIC_BLOCK)
+(insn 38 37 39 5 (set (reg:SF 20 xmm0 [orig:89 _8 ] [89])
+        (mem/c:SF (plus:DI (reg/f:DI 6 bp)
+                (const_int -16 [0xfffffffffffffff0])) [3 arr[1]+0 S4 A32])) "cs1.c":40:31 136 {*movsf_internal}
+     (nil))
+(insn 39 38 40 5 (set (reg:SI 1 dx [orig:90 _9 ] [90])
+        (fix:SI (reg:SF 20 xmm0 [orig:89 _8 ] [89]))) "cs1.c":40:16 170 {fix_truncsfsi_sse}
+     (nil))
+(insn 40 39 41 5 (set (reg:SF 20 xmm0 [orig:91 _10 ] [91])
+        (mem/c:SF (plus:DI (reg/f:DI 6 bp)
+                (const_int -20 [0xffffffffffffffec])) [3 arr[0]+0 S4 A32])) "cs1.c":40:23 136 {*movsf_internal}
+     (nil))
+(insn 41 40 42 5 (set (reg:SI 0 ax [orig:92 _11 ] [92])
+        (fix:SI (reg:SF 20 xmm0 [orig:91 _10 ] [91]))) "cs1.c":40:16 170 {fix_truncsfsi_sse}
+     (nil))
+(insn 42 41 43 5 (set (reg:SI 4 si)
+        (reg:SI 1 dx [orig:90 _9 ] [90])) "cs1.c":40:16 75 {*movsi_internal}
+     (nil))
+(insn 43 42 44 5 (set (reg:SI 5 di)
+        (reg:SI 0 ax [orig:92 _11 ] [92])) "cs1.c":40:16 75 {*movsi_internal}
+     (nil))
+(call_insn 44 43 46 5 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("add") [flags 0x3]  <function_decl 0x7f26273eb700 add>) [0 add S1 A8])
+            (const_int 0 [0]))) "cs1.c":40:16 824 {*call_value}
+     (nil)
+    (expr_list:SI (use (reg:SI 5 di))
+        (expr_list:SI (use (reg:SI 4 si))
+            (nil))))
+(insn 46 44 47 5 (set (mem/c:SI (plus:DI (reg/f:DI 6 bp)
+                (const_int -24 [0xffffffffffffffe8])) [1 sum1+0 S4 A64])
+        (reg:SI 0 ax [105])) "cs1.c":40:16 75 {*movsi_internal}
+     (nil))
+(insn 47 46 48 5 (set (reg:QI 0 ax)
+        (const_int 0 [0])) "cs1.c":42:5 77 {*movqi_internal}
+     (nil))
+(call_insn 48 47 49 5 (call (mem:QI (symbol_ref:DI ("print_message") [flags 0x3]  <function_decl 0x7f26273eb600 print_message>) [0 print_message S1 A8])
+        (const_int 0 [0])) "cs1.c":42:5 813 {*call}
+     (nil)
+    (expr_list (use (reg:QI 0 ax))
+        (nil)))
+(insn 49 48 50 5 (set (reg:SI 0 ax [106])
+        (mem/c:SI (plus:DI (reg/f:DI 6 bp)
+                (const_int -24 [0xffffffffffffffe8])) [1 sum1+0 S4 A64])) "cs1.c":43:5 75 {*movsi_internal}
+     (nil))
+(insn 50 49 51 5 (set (reg:SI 4 si)
+        (reg:SI 0 ax [106])) "cs1.c":43:5 75 {*movsi_internal}
+     (nil))
+(insn 51 50 52 5 (set (reg:DI 0 ax [107])
+        (symbol_ref/f:DI ("*.LC6") [flags 0x2]  <var_decl 0x7f2627005240 *.LC6>)) "cs1.c":43:5 74 {*movdi_internal}
+     (nil))
+(insn 52 51 53 5 (set (reg:DI 5 di)
+        (reg:DI 0 ax [107])) "cs1.c":43:5 74 {*movdi_internal}
+     (expr_list:REG_EQUAL (symbol_ref/f:DI ("*.LC6") [flags 0x2]  <var_decl 0x7f2627005240 *.LC6>)
+        (nil)))
+(insn 53 52 54 5 (set (reg:QI 0 ax)
+        (const_int 0 [0])) "cs1.c":43:5 77 {*movqi_internal}
+     (nil))
+(call_insn 54 53 55 5 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("printf") [flags 0x41]  <function_decl 0x7f26272be100 printf>) [0 __builtin_printf S1 A8])
+            (const_int 0 [0]))) "cs1.c":43:5 824 {*call_value}
+     (nil)
+    (expr_list (use (reg:QI 0 ax))
+        (expr_list:DI (use (reg:DI 5 di))
+            (expr_list:SI (use (reg:SI 4 si))
+                (nil)))))
+(insn 55 54 56 5 (set (reg:DF 0 ax [108])
+        (mem/u/c:DF (symbol_ref/u:DI ("*.LC7") [flags 0x2]) [0  S8 A64])) "cs1.c":44:5 135 {*movdf_internal}
+     (expr_list:REG_EQUAL (const_double:DF 3.140000000000000124344978758017532527446746826171875e+0 [0x0.c8f5c28f5c28f8p+2])
+        (nil)))
+(insn 56 55 57 5 (set (reg:DF 20 xmm0)
+        (reg:DF 0 ax [108])) "cs1.c":44:5 135 {*movdf_internal}
+     (nil))
+(insn 57 56 58 5 (set (reg:DI 0 ax [109])
+        (symbol_ref/f:DI ("*.LC8") [flags 0x2]  <var_decl 0x7f26270052d0 *.LC8>)) "cs1.c":44:5 74 {*movdi_internal}
+     (nil))
+(insn 58 57 59 5 (set (reg:DI 5 di)
+        (reg:DI 0 ax [109])) "cs1.c":44:5 74 {*movdi_internal}
+     (expr_list:REG_EQUAL (symbol_ref/f:DI ("*.LC8") [flags 0x2]  <var_decl 0x7f26270052d0 *.LC8>)
+        (nil)))
+(insn 59 58 60 5 (set (reg:QI 0 ax)
+        (const_int 1 [0x1])) "cs1.c":44:5 77 {*movqi_internal}
+     (nil))
+(call_insn 60 59 61 5 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("printf") [flags 0x41]  <function_decl 0x7f26272be100 printf>) [0 __builtin_printf S1 A8])
+            (const_int 0 [0]))) "cs1.c":44:5 824 {*call_value}
+     (nil)
+    (expr_list (use (reg:QI 0 ax))
+        (expr_list:DI (use (reg:DI 5 di))
+            (expr_list:DF (use (reg:DF 20 xmm0))
+                (nil)))))
+(insn 61 60 62 5 (set (reg:SI 4 si)
+        (const_int 42 [0x2a])) "cs1.c":45:5 75 {*movsi_internal}
+     (nil))
+(insn 62 61 63 5 (set (reg:DI 0 ax [110])
+        (symbol_ref/f:DI ("*.LC9") [flags 0x2]  <var_decl 0x7f2627005360 *.LC9>)) "cs1.c":45:5 74 {*movdi_internal}
+     (nil))
+(insn 63 62 64 5 (set (reg:DI 5 di)
+        (reg:DI 0 ax [110])) "cs1.c":45:5 74 {*movdi_internal}
+     (expr_list:REG_EQUAL (symbol_ref/f:DI ("*.LC9") [flags 0x2]  <var_decl 0x7f2627005360 *.LC9>)
+        (nil)))
+(insn 64 63 65 5 (set (reg:QI 0 ax)
+        (const_int 0 [0])) "cs1.c":45:5 77 {*movqi_internal}
+     (nil))
+(call_insn 65 64 66 5 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("printf") [flags 0x41]  <function_decl 0x7f26272be100 printf>) [0 __builtin_printf S1 A8])
+            (const_int 0 [0]))) "cs1.c":45:5 824 {*call_value}
+     (nil)
+    (expr_list (use (reg:QI 0 ax))
+        (expr_list:DI (use (reg:DI 5 di))
+            (expr_list:SI (use (reg:SI 4 si))
+                (nil)))))
+(insn 66 65 114 5 (set (reg:SF 20 xmm0 [orig:93 _12 ] [93])
+        (mem/c:SF (plus:DI (reg/f:DI 6 bp)
+                (const_int -12 [0xfffffffffffffff4])) [3 arr[2]+0 S4 A32])) "cs1.c":46:29 136 {*movsf_internal}
+     (nil))
+(insn 114 66 115 5 (set (reg:V2DF 23 xmm3 [orig:94 _13 ] [94])
+        (const_vector:V2DF [
+                (const_double:DF 0.0 [0x0.0p+0]) repeated x2
+            ])) "cs1.c":46:5 1448 {movv2df_internal}
+     (nil))
+(insn 115 114 105 5 (set (reg:V2DF 23 xmm3 [orig:94 _13 ] [94])
+        (vec_merge:V2DF (vec_duplicate:V2DF (float_extend:DF (reg:SF 20 xmm0 [orig:93 _12 ] [93])))
+            (reg:V2DF 23 xmm3 [orig:94 _13 ] [94])
+            (const_int 1 [0x1]))) "cs1.c":46:5 2788 {*sse2_vd_cvtss2sd}
+     (nil))
+(insn 105 115 68 5 (set (reg:DF 0 ax [orig:94 _13 ] [94])
+        (reg:DF 23 xmm3 [orig:94 _13 ] [94])) "cs1.c":46:5 135 {*movdf_internal}
+     (nil))
+(insn 68 105 69 5 (set (reg:DF 20 xmm0)
+        (reg:DF 0 ax [orig:94 _13 ] [94])) "cs1.c":46:5 135 {*movdf_internal}
+     (nil))
+(insn 69 68 70 5 (set (reg:DI 0 ax [111])
+        (symbol_ref/f:DI ("*.LC10") [flags 0x2]  <var_decl 0x7f26270053f0 *.LC10>)) "cs1.c":46:5 74 {*movdi_internal}
+     (nil))
+(insn 70 69 71 5 (set (reg:DI 5 di)
+        (reg:DI 0 ax [111])) "cs1.c":46:5 74 {*movdi_internal}
+     (expr_list:REG_EQUAL (symbol_ref/f:DI ("*.LC10") [flags 0x2]  <var_decl 0x7f26270053f0 *.LC10>)
+        (nil)))
+(insn 71 70 72 5 (set (reg:QI 0 ax)
+        (const_int 1 [0x1])) "cs1.c":46:5 77 {*movqi_internal}
+     (nil))
+(call_insn 72 71 73 5 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("printf") [flags 0x41]  <function_decl 0x7f26272be100 printf>) [0 __builtin_printf S1 A8])
+            (const_int 0 [0]))) "cs1.c":46:5 824 {*call_value}
+     (nil)
+    (expr_list (use (reg:QI 0 ax))
+        (expr_list:DI (use (reg:DI 5 di))
+            (expr_list:DF (use (reg:DF 20 xmm0))
+                (nil)))))
+(insn 73 72 74 5 (set (reg:SI 0 ax [orig:95 qj.1_14 ] [95])
+        (mem/c:SI (symbol_ref:DI ("qj") [flags 0x2]  <var_decl 0x7f2628cf6e10 qj>) [1 qj+0 S4 A32])) "cs1.c":47:5 75 {*movsi_internal}
+     (nil))
+(insn 74 73 75 5 (set (reg:SI 4 si)
+        (reg:SI 0 ax [orig:95 qj.1_14 ] [95])) "cs1.c":47:5 75 {*movsi_internal}
+     (nil))
+(insn 75 74 76 5 (set (reg:DI 0 ax [112])
+        (symbol_ref/f:DI ("*.LC11") [flags 0x2]  <var_decl 0x7f2627005480 *.LC11>)) "cs1.c":47:5 74 {*movdi_internal}
+     (nil))
+(insn 76 75 77 5 (set (reg:DI 5 di)
+        (reg:DI 0 ax [112])) "cs1.c":47:5 74 {*movdi_internal}
+     (expr_list:REG_EQUAL (symbol_ref/f:DI ("*.LC11") [flags 0x2]  <var_decl 0x7f2627005480 *.LC11>)
+        (nil)))
+(insn 77 76 78 5 (set (reg:QI 0 ax)
+        (const_int 0 [0])) "cs1.c":47:5 77 {*movqi_internal}
+     (nil))
+(call_insn 78 77 79 5 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("printf") [flags 0x41]  <function_decl 0x7f26272be100 printf>) [0 __builtin_printf S1 A8])
+            (const_int 0 [0]))) "cs1.c":47:5 824 {*call_value}
+     (nil)
+    (expr_list (use (reg:QI 0 ax))
+        (expr_list:DI (use (reg:DI 5 di))
+            (expr_list:SI (use (reg:SI 4 si))
+                (nil)))))
+(insn 79 78 80 5 (set (reg:SI 0 ax [orig:96 CONST.2_15 ] [96])
+        (const_int 500 [0x1f4])) "cs1.c":48:5 75 {*movsi_internal}
+     (nil))
+(insn 80 79 81 5 (set (reg:SI 4 si)
+        (reg:SI 0 ax [orig:96 CONST.2_15 ] [96])) "cs1.c":48:5 75 {*movsi_internal}
+     (nil))
+(insn 81 80 82 5 (set (reg:DI 0 ax [113])
+        (symbol_ref/f:DI ("*.LC12") [flags 0x2]  <var_decl 0x7f2627005510 *.LC12>)) "cs1.c":48:5 74 {*movdi_internal}
+     (nil))
+(insn 82 81 83 5 (set (reg:DI 5 di)
+        (reg:DI 0 ax [113])) "cs1.c":48:5 74 {*movdi_internal}
+     (expr_list:REG_EQUAL (symbol_ref/f:DI ("*.LC12") [flags 0x2]  <var_decl 0x7f2627005510 *.LC12>)
+        (nil)))
+(insn 83 82 84 5 (set (reg:QI 0 ax)
+        (const_int 0 [0])) "cs1.c":48:5 77 {*movqi_internal}
+     (nil))
+(call_insn 84 83 85 5 (set (reg:SI 0 ax)
+        (call (mem:QI (symbol_ref:DI ("printf") [flags 0x41]  <function_decl 0x7f26272be100 printf>) [0 __builtin_printf S1 A8])
+            (const_int 0 [0]))) "cs1.c":48:5 824 {*call_value}
+     (nil)
+    (expr_list (use (reg:QI 0 ax))
+        (expr_list:DI (use (reg:DI 5 di))
+            (expr_list:SI (use (reg:SI 4 si))
+                (nil)))))
+(insn 85 84 92 5 (set (reg:SI 0 ax [orig:97 _33 ] [97])
+        (const_int 0 [0])) "cs1.c":50:12 75 {*movsi_internal}
+     (nil))
+(insn 92 85 93 5 (parallel [
+            (set (reg:CCZ 17 flags)
+                (unspec:CCZ [
+                        (mem/v/f/c:DI (plus:DI (reg/f:DI 6 bp)
+                                (const_int -8 [0xfffffffffffffff8])) [2 D.2894+0 S8 A64])
+                        (mem/v/f:DI (const_int 40 [0x28]) [0 MEM[(<address-space-1> long unsigned int *)40B]+0 S8 A64 AS1])
+                    ] UNSPEC_SP_TEST))
+            (clobber (reg:DI 1 dx [116]))
+        ]) "cs1.c":51:1 1164 {stack_protect_test_1_di}
+     (nil))
+(jump_insn 93 92 100 5 (set (pc)
+        (if_then_else (eq (reg:CCZ 17 flags)
+                (const_int 0 [0]))
+            (label_ref 96)
+            (pc))) "cs1.c":51:1 806 {*jcc}
+     (nil)
+ -> 96)
+(note 100 93 94 6 [bb 6] NOTE_INSN_BASIC_BLOCK)
+(call_insn 94 100 95 6 (call (mem:QI (symbol_ref:DI ("__stack_chk_fail") [flags 0x41]  <function_decl 0x7f26273fb100 __stack_chk_fail>) [0 __stack_chk_fail S1 A8])
+        (const_int 0 [0])) "cs1.c":51:1 813 {*call}
+     (expr_list:REG_ARGS_SIZE (const_int 0 [0])
+        (expr_list:REG_NORETURN (const_int 0 [0])
+            (expr_list:REG_EH_REGION (const_int 0 [0])
+                (nil))))
+    (nil))
+(barrier 95 94 96)
+(code_label 96 95 101 7 8 (nil) [1 uses])
+(note 101 96 98 7 [bb 7] NOTE_INSN_BASIC_BLOCK)
+(insn 98 101 110 7 (use (reg/i:SI 0 ax)) "cs1.c":51:1 -1
+     (nil))
+(note 110 98 111 7 NOTE_INSN_EPILOGUE_BEG)
+(insn/f 111 110 112 7 (parallel [
+            (set (reg/f:DI 7 sp)
+                (plus:DI (reg/f:DI 6 bp)
+                    (const_int 8 [0x8])))
+            (set (reg/f:DI 6 bp)
+                (mem:DI (reg/f:DI 6 bp) [0  S8 A8]))
+            (clobber (mem:BLK (scratch) [0  A8]))
+        ]) "cs1.c":51:1 -1
+     (expr_list:REG_CFA_DEF_CFA (plus:DI (reg/f:DI 7 sp)
+            (const_int 8 [0x8]))
+        (nil)))
+(jump_insn 112 111 113 7 (simple_return) "cs1.c":51:1 -1
+     (nil)
+ -> simple_return)
+(barrier 113 112 104)
+(note 104 113 0 NOTE_INSN_DELETED)

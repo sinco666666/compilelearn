@@ -1,5 +1,3 @@
-
-; 定义字符串常量
 @.str = private unnamed_addr constant [27 x i8] c"fundamentals of compiling\0A\00", align 1
 @.str.1 = private unnamed_addr constant [3 x i8] c"%d\00", align 1
 @.str.2 = private unnamed_addr constant [13 x i8] c"integer: %d\0A\00", align 1
@@ -7,16 +5,13 @@
 @.str.4 = private unnamed_addr constant [14 x i8] c"constant: %d\0A\00", align 1
 @.str.5 = private unnamed_addr constant [10 x i8] c"sum2: %f\0A\00", align 1
 
-; 定义print_message 函数
 define dso_local void @print_message() #0 {
   %1 = call i32 (ptr, ...) @printf(ptr noundef @.str)
   ret void
 }
 
-; 声明printf 函数
 declare i32 @printf(ptr noundef, ...) #1
 
-; 定义add 函数
 define dso_local i32 @add(i32 noundef %0, i32 noundef %1) #0 {
   %3 = alloca i32, align 4
   %4 = alloca i32, align 4
@@ -29,7 +24,6 @@ define dso_local i32 @add(i32 noundef %0, i32 noundef %1) #0 {
 }
 
 
-; 定义main 函数
 define dso_local i32 @main() #0 {
   %1 = alloca i32, align 4
   %2 = alloca [3 x float], align 4

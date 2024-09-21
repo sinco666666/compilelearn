@@ -4,101 +4,72 @@
 @.str.3 = private unnamed_addr constant [14 x i8] c"floating: %f\0A\00", align 1
 @.str.4 = private unnamed_addr constant [14 x i8] c"constant: %d\0A\00", align 1
 @.str.5 = private unnamed_addr constant [10 x i8] c"sum2: %f\0A\00", align 1
+@.str.6 = private unnamed_addr constant [12 x i8] c"global: %d\0A\00", align 1
 
-define dso_local void @print_message() #0 {
-  %1 = call i32 (ptr, ...) @printf(ptr noundef @.str)
+declare dso_local i32 @__isoc99_scanf(i8*, ...)
+declare dso_local i32 @printf(i8*, ...)
+
+@global = global i32 1
+
+define dso_local void @print_message() {
+  call i32 (ptr, ...) @printf(ptr noundef @.str)
   ret void
 }
 
-declare i32 @printf(ptr noundef, ...) #1
 
-define dso_local i32 @add(i32 noundef %0, i32 noundef %1) #0 {
-  %3 = alloca i32, align 4
-  %4 = alloca i32, align 4
-  store i32 %0, ptr %3, align 4
-  store i32 %1, ptr %4, align 4
-  %5 = load i32, ptr %3, align 4
-  %6 = load i32, ptr %4, align 4
-  %7 = add nsw i32 %5, %6
-  ret i32 %7
+define dso_local i32 @add(i32 noundef %a, i32 noundef %b) {
+  %result = add nsw i32 %a, %b
+  ret i32 %result
 }
 
+define dso_local i32 @main(){
+%sum = alloca i32, align 4
+%arr = alloca [3 x float], align 4
 
-define dso_local i32 @main() #0 {
-  %1 = alloca i32, align 4
-  %2 = alloca [3 x float], align 4
-  %3 = alloca i32, align 4
-  %4 = alloca i32, align 4
-  %5 = alloca i32, align 4
+%arr_0 = getelementptr inbounds [3 x float], ptr %arr, i64 0, i64 0
+store float 5.0, ptr %arr_0, align 4
+%arr_1 = getelementptr inbounds [3 x float], ptr %arr, i64 0, i64 1
+store float 7.0, ptr %arr_1, align 4
+%arr_2 = getelementptr inbounds [3 x float], ptr %arr, i64 0, i64 2
+store float 0.0, ptr %arr_2, align 4
 
-  store i32 0, ptr %1, align 4
-  %6 = getelementptr inbounds [3 x float], ptr %2, i64 0, i64 0
-  store float 5.000000e+00, ptr %6, align 4
-  %7 = getelementptr inbounds [3 x float], ptr %2, i64 0, i64 1
-  store float 7.000000e+00, ptr %7, align 4
-  %8 = getelementptr inbounds [3 x float], ptr %2, i64 0, i64 2
-  store float 0.000000e+00, ptr %8, align 4
-  %9 = call i32 (ptr, ...) @__isoc99_scanf(ptr noundef @.str.1, ptr noundef %3)
+%input = alloca i32, align 4
+call i32 (ptr, ...) @__isoc99_scanf(ptr noundef @.str.1, ptr noundef %input)
+%input_val = load i32, ptr %input, align 4
 
+br label %loop
 
-  store i32 0, ptr %4, align 4
-  br label %10
+loop:                                             ; preds = %loop, %0
+  %i = phi i32 [ 0, %0 ], [ %next, %loop ]
+  %arr_2_val = load float, ptr %arr_2, align 4
+  %i_float = sitofp i32 %i to float
+  %updated = fadd float %arr_2_val, %i_float
+  store float %updated, ptr %arr_2, align 4
 
-10:                                               ; preds = %14, %0
-  %11 = load i32, ptr %4, align 4
-  %12 = load i32, ptr %3, align 4
-  %13 = icmp sle i32 %11, %12
-  br i1 %13, label %14, label %24
+  %next = add i32 %i, 1
+  %cmp = icmp sle i32 %next, %input_val
+  br i1 %cmp, label %loop, label %exit
 
-14:                                               ; preds = %10
-  %15 = load i32, ptr %4, align 4
-  %16 = sitofp i32 %15 to double
-  %17 = getelementptr inbounds [3 x float], ptr %2, i64 0, i64 2
-  %18 = load float, ptr %17, align 4
-  %19 = fpext float %18 to double
-  %20 = call double @llvm.fmuladd.f64(double %16, double 1.000000e-01, double %19)
-  %21 = fptrunc double %20 to float
-  store float %21, ptr %17, align 4
-  %22 = load i32, ptr %4, align 4
-  %23 = add nsw i32 %22, 1
-  store i32 %23, ptr %4, align 4
-  br label %10
-
-
-24:                                               ; preds = %10
-  %25 = getelementptr inbounds [3 x float], ptr %2, i64 0, i64 0
-  %26 = load float, ptr %25, align 4
-  %27 = fptosi float %26 to i32
-  %28 = getelementptr inbounds [3 x float], ptr %2, i64 0, i64 1
-  %29 = load float, ptr %28, align 4
-  %30 = fptosi float %29 to i32
-  %31 = call i32 @add(i32 noundef %27, i32 noundef %30)
-  store i32 %31, ptr %5, align 4
-
-
-
+exit:                                             ; preds = %loop
+  %val_0 = load float, ptr %arr_0, align 4
+  %val_1 = load float, ptr %arr_1, align 4
+  %val_0_int = fptosi float %val_0 to i32
+  %val_1_int = fptosi float %val_1 to i32
+  %sum_int = call i32 @add(i32 noundef %val_0_int, i32 noundef %val_1_int)
+  store i32 %sum_int, ptr %sum, align 4
+  
   call void @print_message()
-  %32 = load i32, ptr %5, align 4
-  %33 = call i32 (ptr, ...) @printf(ptr noundef @.str.2, i32 noundef %32)
-  %34 = call i32 (ptr, ...) @printf(ptr noundef @.str.3, double noundef 3.140000e+00)
-  %35 = call i32 (ptr, ...) @printf(ptr noundef @.str.4, i32 noundef 42)
-  %36 = getelementptr inbounds [3 x float], ptr %2, i64 0, i64 2
-  %37 = load float, ptr %36, align 4
-  %38 = fpext float %37 to double
-  %39 = call i32 (ptr, ...) @printf(ptr noundef @.str.5, double noundef %38)
+  %final_sum = load i32, ptr %sum, align 4
+  call i32 (ptr, ...) @printf(ptr noundef @.str.2, i32 noundef %final_sum)
+  call i32 (ptr, ...) @printf(ptr noundef @.str.3, double noundef 3.14)
+  call i32 (ptr, ...) @printf(ptr noundef @.str.4, i32 noundef 42)
 
-
+  %arr_2_final = load float, ptr %arr_2, align 4
+  %arr_2_double = fpext float %arr_2_final to double
+  call i32 (ptr, ...) @printf(ptr noundef @.str.5, double noundef %arr_2_double)
+  
+  %global = load i32, ptr @global
+  call i32 (ptr, ...) @printf(ptr noundef @.str.6, i32 noundef %global)
+  
   ret i32 0
-
 }
-
-
-declare i32 @__isoc99_scanf(ptr noundef, ...) #1
-
-
-attributes #0 = { noinline nounwind optnone uwtable "frame-pointer"="all" "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #1 = { "frame-pointer"="all" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #2 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-
-
-

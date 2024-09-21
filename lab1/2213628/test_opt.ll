@@ -1,99 +1,61 @@
 ; ModuleID = 'test.ll'
 source_filename = "test.ll"
 
-@.str = private unnamed_addr constant [27 x i8] c"fundamentals of compiling\0A\00", align 1
 @.str.1 = private unnamed_addr constant [3 x i8] c"%d\00", align 1
 @.str.2 = private unnamed_addr constant [13 x i8] c"integer: %d\0A\00", align 1
 @.str.3 = private unnamed_addr constant [14 x i8] c"floating: %f\0A\00", align 1
 @.str.4 = private unnamed_addr constant [14 x i8] c"constant: %d\0A\00", align 1
 @.str.5 = private unnamed_addr constant [10 x i8] c"sum2: %f\0A\00", align 1
+@.str.6 = private unnamed_addr constant [12 x i8] c"global: %d\0A\00", align 1
+@global = local_unnamed_addr global i32 1
+@str = private unnamed_addr constant [26 x i8] c"fundamentals of compiling\00", align 1
 
-; Function Attrs: noinline nounwind optnone uwtable
+declare dso_local i32 @__isoc99_scanf(ptr, ...) local_unnamed_addr
+
+; Function Attrs: nofree nounwind
+declare dso_local noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_addr #0
+
+; Function Attrs: nofree nounwind
 define dso_local void @print_message() local_unnamed_addr #0 {
-  %1 = call i32 (ptr, ...) @printf(ptr noundef @.str)
+  %puts = tail call i32 @puts(ptr nonnull dereferenceable(1) @str)
   ret void
 }
 
-; Function Attrs: nofree nounwind
-declare noundef i32 @printf(ptr nocapture noundef readonly, ...) local_unnamed_addr #1
-
-; Function Attrs: noinline nounwind optnone uwtable
-define dso_local i32 @add(i32 noundef %0, i32 noundef %1) local_unnamed_addr #0 {
-  %3 = alloca i32, align 4
-  %4 = alloca i32, align 4
-  store i32 %0, ptr %3, align 4
-  store i32 %1, ptr %4, align 4
-  %5 = load i32, ptr %3, align 4
-  %6 = load i32, ptr %4, align 4
-  %7 = add nsw i32 %5, %6
-  ret i32 %7
+; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(none)
+define dso_local i32 @add(i32 noundef %a, i32 noundef %b) local_unnamed_addr #1 {
+  %result = add nsw i32 %b, %a
+  ret i32 %result
 }
 
-; Function Attrs: noinline nounwind optnone uwtable
-define dso_local i32 @main() local_unnamed_addr #0 {
-  %1 = alloca i32, align 4
-  %2 = alloca [3 x float], align 4
-  %3 = alloca i32, align 4
-  %4 = alloca i32, align 4
-  %5 = alloca i32, align 4
-  store i32 0, ptr %1, align 4
-  %6 = getelementptr inbounds [3 x float], ptr %2, i64 0, i64 0
-  store float 5.000000e+00, ptr %6, align 4
-  %7 = getelementptr inbounds [3 x float], ptr %2, i64 0, i64 1
-  store float 7.000000e+00, ptr %7, align 4
-  %8 = getelementptr inbounds [3 x float], ptr %2, i64 0, i64 2
-  store float 0.000000e+00, ptr %8, align 4
-  %9 = call i32 (ptr, ...) @__isoc99_scanf(ptr noundef @.str.1, ptr noundef %3)
-  store i32 0, ptr %4, align 4
-  br label %10
+define dso_local noundef i32 @main() local_unnamed_addr {
+  %input = alloca i32, align 4
+  %1 = call i32 (ptr, ...) @__isoc99_scanf(ptr noundef nonnull @.str.1, ptr noundef nonnull %input)
+  %input_val = load i32, ptr %input, align 4
+  br label %loop
 
-10:                                               ; preds = %14, %0
-  %11 = load i32, ptr %4, align 4
-  %12 = load i32, ptr %3, align 4
-  %13 = icmp sle i32 %11, %12
-  br i1 %13, label %14, label %24
+loop:                                             ; preds = %loop, %0
+  %arr.sroa.4.0 = phi float [ 0.000000e+00, %0 ], [ %updated, %loop ]
+  %i = phi i32 [ 0, %0 ], [ %next, %loop ]
+  %i_float = sitofp i32 %i to float
+  %updated = fadd float %arr.sroa.4.0, %i_float
+  %next = add i32 %i, 1
+  %cmp.not = icmp sgt i32 %next, %input_val
+  br i1 %cmp.not, label %exit, label %loop
 
-14:                                               ; preds = %10
-  %15 = load i32, ptr %4, align 4
-  %16 = sitofp i32 %15 to double
-  %17 = getelementptr inbounds [3 x float], ptr %2, i64 0, i64 2
-  %18 = load float, ptr %17, align 4
-  %19 = fpext float %18 to double
-  %20 = call double @llvm.fmuladd.f64(double %16, double 1.000000e-01, double %19)
-  %21 = fptrunc double %20 to float
-  store float %21, ptr %17, align 4
-  %22 = load i32, ptr %4, align 4
-  %23 = add nsw i32 %22, 1
-  store i32 %23, ptr %4, align 4
-  br label %10
-
-24:                                               ; preds = %10
-  %25 = getelementptr inbounds [3 x float], ptr %2, i64 0, i64 0
-  %26 = load float, ptr %25, align 4
-  %27 = fptosi float %26 to i32
-  %28 = getelementptr inbounds [3 x float], ptr %2, i64 0, i64 1
-  %29 = load float, ptr %28, align 4
-  %30 = fptosi float %29 to i32
-  %31 = call i32 @add(i32 noundef %27, i32 noundef %30)
-  store i32 %31, ptr %5, align 4
-  call void @print_message()
-  %32 = load i32, ptr %5, align 4
-  %33 = call i32 (ptr, ...) @printf(ptr noundef @.str.2, i32 noundef %32)
-  %34 = call i32 (ptr, ...) @printf(ptr noundef @.str.3, double noundef 3.140000e+00)
-  %35 = call i32 (ptr, ...) @printf(ptr noundef @.str.4, i32 noundef 42)
-  %36 = getelementptr inbounds [3 x float], ptr %2, i64 0, i64 2
-  %37 = load float, ptr %36, align 4
-  %38 = fpext float %37 to double
-  %39 = call i32 (ptr, ...) @printf(ptr noundef @.str.5, double noundef %38)
+exit:                                             ; preds = %loop
+  %puts.i = call i32 @puts(ptr nonnull dereferenceable(1) @str)
+  %2 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.2, i32 noundef 12)
+  %3 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.3, double noundef 3.140000e+00)
+  %4 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.4, i32 noundef 42)
+  %arr_2_double = fpext float %updated to double
+  %5 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.5, double noundef %arr_2_double)
+  %global = load i32, ptr @global, align 4
+  %6 = call i32 (ptr, ...) @printf(ptr noundef nonnull dereferenceable(1) @.str.6, i32 noundef %global)
   ret i32 0
 }
 
-declare i32 @__isoc99_scanf(ptr noundef, ...) local_unnamed_addr #2
+; Function Attrs: nofree nounwind
+declare noundef i32 @puts(ptr nocapture noundef readonly) local_unnamed_addr #0
 
-; Function Attrs: mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare double @llvm.fmuladd.f64(double, double, double) #3
-
-attributes #0 = { noinline nounwind optnone uwtable "frame-pointer"="all" "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #1 = { nofree nounwind "frame-pointer"="all" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #2 = { "frame-pointer"="all" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #3 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #0 = { nofree nounwind }
+attributes #1 = { mustprogress nofree norecurse nosync nounwind willreturn memory(none) }
